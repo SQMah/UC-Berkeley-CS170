@@ -104,7 +104,7 @@ def generate_input(student_dict, k, n):
                 j_room = student_dict[j]
                 happiness_i, stress_i = room_stats[i_room]
                 happiness_j, stress_j = room_stats[j_room]
-                if len(room_dict[student_dict[i]]) == 1 or len(room_dict[student_dict[j]]) == 1:
+                if len(room_dict[student_dict[i]]) == 1 and len(room_dict[student_dict[j]]) == 1:
                     # Both of the students are alone
                     happiness_max = global_min_happiness
                     stress_min = global_max_stress
