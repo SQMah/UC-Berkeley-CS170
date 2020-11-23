@@ -15,8 +15,11 @@ if __name__ == "__main__":
     D = read_output_file(OUT_FILE, G, stress_budget)
     print(f"TOTAL HAPPINESS: {calculate_happiness(D, G)}")
     print(f"STRESS BUDGET: {stress_budget}")
-    print(f"Student to room: {D}")
     room_map = room_to_student(D)
+    print(f"TOTAL ROOMS: {len(room_map)}")
+    print(f"S_MAX / k: {stress_budget / len(room_map)}")
+    print("="*40)
+    print(f"Student to room: {D}")
     print(f"Room to students: {room_map}")
     for room in room_map:
         students = room_map[room]
