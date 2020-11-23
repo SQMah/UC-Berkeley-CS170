@@ -4,7 +4,7 @@ from utils import calculate_stress_for_room, calculate_happiness_for_room, calcu
 import os
 
 if __name__ == "__main__":
-    N = 20
+    N = 50
     generate_input(*generate_output(N))
     IN_FILE = os.path.join("samples", f"{N}.in")
     OUT_FILE = os.path.join("samples", f"{N}.out")
