@@ -11,9 +11,40 @@ class Room:
         self.stress = 0
         self.happiness = 0
 
-    def add_student(self, G):
-        pass
-    
+	def get_rm_id(self):
+		return self.rm_id
+
+    def add_student(self, new_student, happiness, stress):
+        self.students.add(student)
+		self.happiness = happiness
+		self.stress = stress
+			
+	'''def calculate_happiness_and_stress(self, G):
+		total_happiness = 0
+		total_stress = 0
+		for studentA in students:
+			for studentB in students:
+				if studentA != studentB:
+					data = G.get_edge_data(studentA, studentB)
+					total_happiness += data[0]
+					total_stress += data[1]
+		return total_happiness, total_stress;
+	'''
+	def get_happiness(self):
+		return self.happiness
+	
+	def get_stress(self):
+		return self.stress
+
+	def calculate_test_happiness_and_stress(self, test_student, G):
+		total_happiness = self.happiness
+		total_stress = self.stress
+		for student in students:
+			data = G.get_edge_data(student, test_student)
+			total_happiness += data[0]
+			total_stress += data[1]
+		return total_happiness, total_stress
+
     def get_dict(self):
         return {self.rm_id: list(self.students)}
 
@@ -29,8 +60,54 @@ def solve(G, s):
     """
 
     # TODO: your code here!
-    pass
+	edges = G.edges
+	rooms = {}
+	#Put student in best breakout room that maximizes happiness
+	remaining_students = set(G.nodes)
+	total_data_students = {}
+	for studentA in G.nodes:
+		for studentB in G.nodes:
+			if studentA != studentB:
+				data = G.get_edge_data(studentA, studentB);
+				happiness, stress = data[0], data[1]
+				if studentA not in total_data_students:
+					total_data_students[studentA] = [0, 0]
+				total_data_students[studentA][0] += happiness
+				total_data_students[studentA][1] += stress
+	min_stress_student = min(total_data_students, key = lambda x: total_data_students[x][1])
+	rooms[0] = Room(0)
+	rooms[0].add_student(min_stress_student)
+	remaining_students.remove(min_stress_student)
+	max_happiness = float("-inf")
+	room_stress = None
+	best_student = None  #student, test happiness, test stress 
+	best_room = None
+	for student in remaining_students:
+		k = len(rooms)
+		for room_num in rooms:
+			room = rooms[room_num]
+			happiness, stress = room.calculate_test_happiness_and_stress(student, G)
+			if stress <= (s / k) and (happiness > max_happiness or (happiness == max_happiness and stress < room_stress)): 
+				max_happiness = happiness;
+				room_stress = stress 
+				best_student = student
+				best_room = room_num
+	 if best_student != None:
+		rooms[best_room].add_student(best_student, max_happiness, room_stress)
+	#continue calling algorithm
+	#else backtrack
 
+def solve(G, s, rs, ra):
+	'''
+	Solver helper for recursive calls
+	Args: 
+		G: networkX graph
+		s: stress_budget
+		rs: remaining students
+		ra: room assignments
+	Returns:
+		???
+	'''
 
 if __name__ == "__main__":
     assert len(sys.argv) == 2
