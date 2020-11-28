@@ -8,6 +8,9 @@ class Room:
         self.stress = 0
         self.happiness = 0
 
+    def __hash__(self):
+        return hash(self.students)
+
     def copy(self):
         new_room = Room(self.rm_id)
         new_room.students = self.students
