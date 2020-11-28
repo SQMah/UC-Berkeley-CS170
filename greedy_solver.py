@@ -77,7 +77,7 @@ class Room:
 
     def copy(self):
         new_room = Room(self.rm_id)
-        new_room.students = self.students.copy()
+        new_room.students = self.students
         new_room.stress = self.stress
         new_room.happiness = self.happiness
         return new_room
@@ -139,13 +139,28 @@ def get_priority_for_student(G, s: float, ra: dict, can_add_room: bool, student:
     permissible = []
     non_permissible = []
     k = len(ra)
-    for room_num in ra:
-        room = ra[room_num]
-        happiness, stress = room.calculate_test_happiness_and_stress(student, G)
-        if stress <= (s / k):
-            permissible.append((-happiness, happiness, stress, room_num, student))
-        if can_add_room:
-            non_permissible.append((-stress, happiness, stress, room_num, student))
+    if k != 0:
+        for room_num in ra:
+            room = ra[room_num]
+            happiness, stress = room.calculate_test_happiness_and_stress(student, G)
+            if stress <= (s / k):
+                permissible.append((-happiness, happiness, stress, room_num, student))
+            if can_add_room:
+                non_permissible.append((-stress, happiness, stress, room_num, student))
+    else:
+        total_data_students = {}
+        for studentA in G.nodes:
+            for studentB in G.nodes:
+                if studentA != studentB:
+                    data = G.get_edge_data(studentA, studentB)
+                    happiness, stress = data["happiness"], data["stress"]
+                    if studentA not in total_data_students:
+                        total_data_students[studentA] = [0, 0]
+                    total_data_students[studentA][0] += happiness
+                    total_data_students[studentA][1] += stress
+        for student in total_data_students:
+            happiness, stress = total_data_students[student]
+            non_permissible.append((-stress, happiness, stress, 0, student))
     return permissible, non_permissible
 
 
@@ -163,6 +178,7 @@ def can_add_extra_room(ra: Dict[int, Room], s: float) -> bool:
     k = len(ra)
     return all([ra[room_num].get_stress() <= s / (k + 1) for room_num in ra])
 
+
 def solver_helper(G, s: float, rs: set, ra: dict, visited):
     """
 	Solver helper for recursive calls
@@ -174,9 +190,9 @@ def solver_helper(G, s: float, rs: set, ra: dict, visited):
 	Returns:
 		???
 	"""
+    # print(ra)
     ra_to_set = frozenset(map(lambda x: x.students, list(ra.values())))
-    if ra_to_set in visited:
-        return None
+    visited.add(ra_to_set)
     if not rs:
         # If no remaining students, we've reached the optimal assigment
         return ra
@@ -198,10 +214,11 @@ def solver_helper(G, s: float, rs: set, ra: dict, visited):
         new_rs.remove(student)
         new_ra: Dict[int, Room] = {num: ra[num].copy() for num in ra if num != room_num}
         new_ra[room_num] = ra[room_num].copy_and_add_student(student, happiness, stress)
-        res = solver_helper(G, s, new_rs, new_ra, visited)
-        visited.add(ra_to_set)
-        if res is not None:
-            return res
+        new_ra_to_set = frozenset(map(lambda x: x.students, list(new_ra.values())))
+        if new_ra_to_set not in visited:
+            res = solver_helper(G, s, new_rs, new_ra, visited)
+            if res is not None:
+                return res
     while not non_permissible_q.isEmpty():
         # Create new room
         _, happiness, stress, room_num, student = non_permissible_q.pop()
@@ -209,10 +226,11 @@ def solver_helper(G, s: float, rs: set, ra: dict, visited):
         new_rs.remove(student)
         new_ra: Dict[int, Room] = {num: ra[num].copy() for num in ra}
         new_ra[len(ra)] = Room(len(ra), student)
-        res = solver_helper(G, s, new_rs, new_ra, visited)
-        visited.add(ra_to_set)
-        if res is not None:
-            return res
+        new_ra_to_set = frozenset(map(lambda x: x.students, list(new_ra.values())))
+        if new_ra_to_set not in visited:
+            res = solver_helper(G, s, new_rs, new_ra, visited)
+            if res is not None:
+                return res
     # Signals caller to try next option, or backtrack
     return None
 
@@ -233,19 +251,6 @@ def solve(G, s):
     visited = set()
     # Put student in best breakout room that maximizes happiness
     remaining_students = set(G.nodes)
-    total_data_students = {}
-    for studentA in G.nodes:
-        for studentB in G.nodes:
-            if studentA != studentB:
-                data = G.get_edge_data(studentA, studentB)
-                happiness, stress = data["happiness"], data["stress"]
-                if studentA not in total_data_students:
-                    total_data_students[studentA] = [0, 0]
-                total_data_students[studentA][0] += happiness
-                total_data_students[studentA][1] += stress
-    min_stress_student = min(total_data_students, key=lambda x: total_data_students[x][1])
-    rooms[0] = Room(0, min_stress_student)
-    remaining_students.remove(min_stress_student)
     res = solver_helper(G, s, remaining_students, rooms, visited)
     D = {}
     for room_num in res:
@@ -274,11 +279,11 @@ if __name__ == "__main__":
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
 # if __name__ == '__main__':
-#     inputs = glob.glob('file_path/inputs/*')
-#     for input_path in inputs:
-#         output_path = 'file_path/outputs/' + basename(normpath(input_path))[:-3] + '.out'
-#         G, s = read_input_file(input_path, 100)
-#         D, k = solve(G, s)
-#         assert is_valid_solution(D, G, s, k)
-#         cost_t = calculate_happiness(T)
-#         write_output_file(D, output_path)
+#	 inputs = glob.glob('file_path/inputs/*')
+#	 for input_path in inputs:
+#		 output_path = 'file_path/outputs/' + basename(normpath(input_path))[:-3] + '.out'
+#		 G, s = read_input_file(input_path, 100)
+#		 D, k = solve(G, s)
+#		 assert is_valid_solution(D, G, s, k)
+#		 cost_t = calculate_happiness(T)
+#		 write_output_file(D, output_path)
