@@ -1,118 +1,10 @@
-import networkx as nx
 from parse import read_input_file, write_output_file
 from utils import is_valid_solution, calculate_happiness
 import sys
-import heapq
 from functools import partial
 from typing import Dict
-
-
-class PriorityQueue:
-    """
-	  Implements a priority queue data structure. Each inserted item
-	  has a priority associated with it and the client is usually interested
-	  in quick retrieval of the lowest-priority item in the queue. This
-	  data structure allows O(1) access to the lowest-priority item.
-	"""
-
-    def __init__(self):
-        self.heap = []
-        self.count = 0
-
-    def push(self, item, priority):
-        entry = (priority, self.count, item)
-        heapq.heappush(self.heap, entry)
-        self.count += 1
-
-    def pop(self):
-        (_, _, item) = heapq.heappop(self.heap)
-        return item
-
-    def isEmpty(self):
-        return len(self.heap) == 0
-
-    def update(self, item, priority):
-        # If item already in priority queue with higher priority, update its priority and rebuild the heap.
-        # If item already in priority queue with equal or lower priority, do nothing.
-        # If item not in priority queue, do the same thing as self.push.
-        for index, (p, c, i) in enumerate(self.heap):
-            if i == item:
-                if p <= priority:
-                    break
-                del self.heap[index]
-                self.heap.append((priority, c, item))
-                heapq.heapify(self.heap)
-                break
-        else:
-            self.push(item, priority)
-
-
-class PriorityQueueWithFunction(PriorityQueue):
-    """
-	Implements a priority queue with the same push/pop signature of the
-	Queue and the Stack classes. This is designed for drop-in replacement for
-	those two classes. The caller has to provide a priority function, which
-	extracts each item's priority.
-	"""
-
-    def __init__(self, priorityFunction):
-        """priorityFunction (item) -> priority"""
-        self.priorityFunction = priorityFunction  # store the priority function
-        PriorityQueue.__init__(self)  # super-class initializer
-
-    def push(self, item):
-        """Adds an item to the queue with priority from the priority function"""
-        PriorityQueue.push(self, item, self.priorityFunction(item))
-
-
-class Room:
-    def __init__(self, rm_id, student=None):
-        self.rm_id = rm_id
-        if student is None:
-            self.students = frozenset()
-        else:
-            self.students = frozenset([student])
-        self.stress = 0
-        self.happiness = 0
-
-    def copy(self):
-        new_room = Room(self.rm_id)
-        new_room.students = self.students
-        new_room.stress = self.stress
-        new_room.happiness = self.happiness
-        return new_room
-
-    def copy_and_add_student(self, new_student, happiness, stress):
-        """Returns a new copy of room."""
-        new_room = Room(self.rm_id)
-        new_room.students = frozenset(list(self.students) + [new_student])
-        new_room.stress = self.stress + stress
-        new_room.happiness = self.happiness + happiness
-        return new_room
-
-    def get_rm_id(self):
-        return self.rm_id
-
-    def get_happiness(self):
-        return self.happiness
-
-    def get_stress(self):
-        return self.stress
-
-    def calculate_test_happiness_and_stress(self, test_student, G):
-        total_happiness = self.happiness
-        total_stress = self.stress
-        for student in self.students:
-            data = G.get_edge_data(student, test_student)
-            total_happiness += data["happiness"]
-            total_stress += data["stress"]
-        return total_happiness, total_stress
-
-    def get_dict(self):
-        return {self.rm_id: list(self.students)}
-
-    def __repr__(self):
-        return str(self.students)
+from priority_queue import PriorityQueueWithFunction
+from room import Room
 
 
 def get_priority_for_student(G, s: float, ra: dict, can_add_room: bool, student: int):
@@ -268,22 +160,3 @@ if __name__ == "__main__":
     assert is_valid_solution(D, G, s, k)
     print("Total Happiness: {}".format(calculate_happiness(D, G)))
     write_output_file(D, 'out/test.out')
-
-# Here's an example of how to run your solver.
-
-# Usage: python3 solver.py test.in
-
-# if __name__ == '__main__':
-#
-
-
-# For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
-# if __name__ == '__main__':
-#	 inputs = glob.glob('file_path/inputs/*')
-#	 for input_path in inputs:
-#		 output_path = 'file_path/outputs/' + basename(normpath(input_path))[:-3] + '.out'
-#		 G, s = read_input_file(input_path, 100)
-#		 D, k = solve(G, s)
-#		 assert is_valid_solution(D, G, s, k)
-#		 cost_t = calculate_happiness(T)
-#		 write_output_file(D, output_path)
