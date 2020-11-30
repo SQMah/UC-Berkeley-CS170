@@ -1,7 +1,7 @@
 """
 Replace this solver with whatever solver you're trying to test
 """
-from greedy_solver import solve
+from solver import solve
 
 from utils import is_valid_solution, calculate_happiness
 from parse import read_input_file, read_output_file, write_output_file

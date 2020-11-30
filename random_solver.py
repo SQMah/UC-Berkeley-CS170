@@ -64,7 +64,9 @@ def solve(G, s):
 	"""
 
 	# TODO: your code here!
-	return random_solve(G, s, 6), 6
+	for i in range(1, len(G.nodes)):
+		D, k = random_solve(G, s, i)
+		calculate_happiness(D, G)
 
 def random_solve(G, s, k):
 	N = len(G.nodes)
@@ -108,14 +110,11 @@ def random_solve(G, s, k):
 			roomB = rooms[D[best_student]]
 			print(roomA.students)
 			print(roomB.students)
-			test_swap(D, rooms, worst_student, best_student, s, k)
+			test_swap(D, rooms, worst_student, best_student, s, k, G)
 	return D
 		#swap based on ratio = happiness / stress
 
-def student_key(student):
-	if student in student_ratios:
-		return student_ratios[student]
-def test_swap(D, rooms, A, B, s, k):
+def test_swap(D, rooms, A, B, s, k, G):
 	roomA_id = D[A]
 	roomB_id = D[B]
 	roomA = rooms[D[A]]

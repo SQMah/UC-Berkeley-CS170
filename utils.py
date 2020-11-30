@@ -22,6 +22,7 @@ def is_valid_solution(D, G, s, rooms):
         room_stress = calculate_stress_for_room(v, G)
         if room_stress > room_budget:
             return False
+    #assert len(D) == len(G.nodes)
     return True
 
 
