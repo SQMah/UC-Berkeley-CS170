@@ -20,7 +20,7 @@ if __name__ == "__main__":
     parser.add_argument(dest="input_folder", help="Folder of .in files to test on")
     parser.add_argument(dest="output_folder", help="Folder to write .out files to, files will " +
                                                    "have the same filename as the input file (minus the '.in').")
-    parser.add_argument(dest="result_folder", default=None,
+    parser.add_argument(dest="result_folder", default=None, required=False,
                         help="Folder of .out files to compare the solver results against, " +
                              "must have same filenames as the input file (minus the '.in').")
     args = parser.parse_args()

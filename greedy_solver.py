@@ -82,7 +82,7 @@ def solver_helper(G, s: float, rs: set, ra: dict, visited):
 	Returns:
 		???
 	"""
-    # print(ra)
+    print(ra)
     ra_to_set = frozenset(map(lambda x: x.students, list(ra.values())))
     visited.add(ra_to_set)
     if not rs:
