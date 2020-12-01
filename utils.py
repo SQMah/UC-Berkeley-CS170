@@ -13,6 +13,7 @@ def is_valid_solution(D, G, s, rooms):
     Returns:
         bool: whether D is a valid solution
     """
+    assert len(D) == len(G.nodes)
     room_budget = s / rooms
     room_to_student = {}
     for k, v in D.items():
@@ -22,7 +23,6 @@ def is_valid_solution(D, G, s, rooms):
         room_stress = calculate_stress_for_room(v, G)
         if room_stress > room_budget:
             return False
-    #assert len(D) == len(G.nodes)
     return True
 
 

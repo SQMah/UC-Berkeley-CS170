@@ -102,9 +102,9 @@ def solve(G, s):
 					best_room = room_num
 			if best_room != None:
 				rooms[best_room].add_student(student, max_happiness, room_stress)
-			#else:
-			#	no_valid_solution = True;
-			#	break;
+			else:
+				no_valid_solution = True;
+				break;
 		if not no_valid_solution:
 			final_rooms = {}
 			for room in rooms:
