@@ -1,14 +1,49 @@
 from gurobi_solver import solve
-from utils import is_valid_solution, calculate_happiness
+from utils import calculate_happiness
 from parser import read_input_file, read_output_file, write_output_file
 import os
 import argparse
 import json
 from git import Repo
+from threading import Event
 
+
+CONTINUE_ON_INTERRUPT = False
+TIMEOUT_S = float("inf")
 current_progress_f_path = None
-repo = Repo(os.path.join(os.getcwd(), ".git"))
-origin = repo.remote(name='origin')
+
+
+def repo_add(file_path):
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    repo.git.add(file_path)
+    print(f"[GIT] add {file_path}")
+
+
+def repo_rm(file_path):
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    repo.git.rm(file_path)
+    print(f"[GIT] rm {file_path}")
+
+
+def repo_pull():
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    origin = repo.remote(name='origin')
+    origin.pull()
+    print(f"[GIT] pull")
+
+
+def repo_commit(msg):
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    repo.index.commit(msg)
+    print(f"[GIT] {msg}")
+
+
+def repo_push():
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    origin = repo.remote(name='origin')
+    origin.push()
+    print("[GIT] Pushed to repo.")
+
 
 if __name__ == "__main__":
     try:
@@ -22,9 +57,10 @@ if __name__ == "__main__":
         with open('leaderboard.json', 'r') as f:
             leaderboard = json.load(f)
         dir_list = os.listdir(folder)
+        interrupt_event = Event()
         for file in dir_list:
-            if os.path.splitext(file)[1] == ".in" and "medium" in file:
-                origin.pull()
+            if os.path.splitext(file)[1] == ".in":
+                repo_pull()
                 print("=" * 50)
                 input_f_path = os.path.join(args.input, file)
                 output_f_name = file.replace(".in", ".out")
@@ -35,6 +71,7 @@ if __name__ == "__main__":
                 if os.path.isfile(partial_f_path):
                     print(f"Skipping processing {file}, partial output found")
                     continue
+                output_happiness = None
                 if os.path.isfile(output_f_path):
                     D_out = read_output_file(output_f_path, G, s)
                     output_happiness = calculate_happiness(D_out, G)
@@ -49,26 +86,35 @@ if __name__ == "__main__":
                     print(f"Processing {file}, because output not found.")
                 with open(partial_f_path, 'w') as f:
                     f.write('b r u h\n')
-                repo.git.add(partial_f_path)
-                repo.index.commit(f"Add {partial_f_name}")
-                origin.push()
+                repo_add(partial_f_path)
+                repo_push()
                 current_progress_f_path = current_progress_f_path
-                print(f"[PUSH] {partial_f_name} in progress to repo.")
-                D, k = solve(G, s, early_terminate=True, obj=leaderboard[file])
-                assert is_valid_solution(D, G, s, k)
-                solver_happiness = calculate_happiness(D, G)
-                print("SOLVER: Total Happiness: {}".format(solver_happiness))
+                bare_filename = file.replace(".in", "")
+                D, k = solve(G, s, early_terminate=True, obj=leaderboard[file], did_interrupt=interrupt_event,
+                             prev=output_happiness, filename=bare_filename, output_dir=args.output)
+                did_improve = False
+                if D is not None and k is not None:
+                    solver_happiness = calculate_happiness(D, G)
+                    print("SOLVER: Total Happiness: {}".format(solver_happiness))
+                    write_output_file(D, output_f_path)
+                    repo_add(output_f_path)
+                    model_sol_path = os.path.join(args.output, bare_filename + ".sol")
+                    if os.path.isfile(model_sol_path):
+                        repo_add(model_sol_path)
                 os.remove(partial_f_path)
-                repo.remove(partial_f_path)
-                write_output_file(D, output_f_path)
-                repo.add(output_f_path)
-                repo.index.commit(f"Found solution for {file}")
-                origin.push()
+                repo_rm(partial_f_path)
+                if D is not None and k is not None:
+                    repo_commit(f"Found better solution for {file}")
+                else:
+                    repo_commit(f"Remove .inprogress for {file}")
+                repo_push()
+                if interrupt_event.isSet() and not CONTINUE_ON_INTERRUPT:
+                    interrupt_event.clear()
+                    break
     except KeyboardInterrupt:
         if current_progress_f_path is not None and os.path.isfile(current_progress_f_path):
             print("Exiting...")
             os.remove(current_progress_f_path)
-            print(f"Removing in progress file at {current_progress_f_path}")
-            repo.commit(f"Remove progress file {os.path.basename(current_progress_f_path)}")
-            origin.push()
-            print(f"[PUSH] Removed {os.path.basename(current_progress_f_path)} in progress to repo.")
+            repo_rm(current_progress_f_path)
+            repo_commit(f"Remove progress file {os.path.basename(current_progress_f_path)}")
+            repo_push()

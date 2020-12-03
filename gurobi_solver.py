@@ -2,9 +2,12 @@ import gurobipy.gurobipy as gp
 from gurobipy.gurobipy import GRB
 import numba
 import numpy as np
+from utils import is_valid_solution, calculate_happiness
+from threading import Event
+import os
 
 val = None
-m = None
+
 
 @numba.njit
 def index_generator(n):
@@ -23,7 +26,8 @@ def soft_term(model, where):
             model.terminate()
 
 
-def solve(G, s, early_terminate=False, obj=None):
+def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, prev: float = None,
+          filename: str = None, output_dir: str = None):
     """
     Iterates through every possible k, from 1 to len(G.nodes) and takes the maximum.
     Results calculated using gurobi.
@@ -34,12 +38,19 @@ def solve(G, s, early_terminate=False, obj=None):
         if true, will terminate the optimization when objective found is >= than what is currently on the leaderboard
     :param obj: float
         Value to terminate when exceeded.
+    :param did_interrupt: Event
+        Event to signify if interrupted.
+    :param prev: float
+        The previous happiness for an output, if one exists.
+    :param filename: str
+        Filename of input file without the .in
+    :param output_dir: str
+        Path to output directory to look for model files.
     :return: tuple
         D: Dictionary mapping for student to breakout room r e.g. {0:2, 1:0, 2:1, 3:2}
         k: Number of breakout rooms
     """
     global val
-    global m
     val = obj
     n = len(G.nodes)
     indices = index_generator(n)
@@ -56,28 +67,57 @@ def solve(G, s, early_terminate=False, obj=None):
         for index in indices) for r in range(n))
     # Constrain that if a room does not exist, then students can't be assigned to that room.
     for k in range(0, n):
-        m.addGenConstrIndicator(room_indicator[k], False, student_indicator.sum('*', k) == 0) # noqa
+        m.addGenConstrIndicator(room_indicator[k], False, student_indicator.sum('*', k) == 0)  # noqa
     m.addConstrs((room_stress[r] * room_indicator.sum() <= s for r in range(n)), name="s_max")
-    total_happiness = m.addVar(vtype=GRB.CONTINUOUS, lb=0) # noqa
-    m.addConstr(total_happiness == sum(gp.quicksum(
-            G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
-            for index in indices) for r in range(n))) # noqa
     m.setObjective(
-        total_happiness,
+        sum(gp.quicksum(
+            G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
+            for index in indices) for r in range(n)),
         GRB.MAXIMIZE)
+    f_path = None
+    file_exts = {".sol"}
+    if filename is not None and output_dir is not None:
+        f_path = os.path.join(output_dir, filename)
+        for ext in file_exts:
+            f_path_ext = f_path + ext
+            if os.path.isfile(f_path_ext):
+                m.update()
+                print(f"Found previous model {ext} at {f_path_ext}")
+                m.read(f_path_ext)
     if early_terminate:
         m.optimize(soft_term)  # noqa
     else:
         m.optimize()
-
-    # Compute results
-    allocation = {}
-    # Map room number to 0, 1, 2 in order
-    rooms = dict()
-    for s_id in range(n):
-        r = np.argmax([student_indicator[(s_id, r)].X for r in range(n)])
-        if r not in rooms:
-            rooms[r] = len(rooms)
-        allocation[s_id] = rooms[r]
-    k = len(set([r for r in allocation.values()]))
-    return allocation, k
+    if did_interrupt is not None and m.Status == GRB.INTERRUPTED:
+        did_interrupt.set()
+    try:
+        # Compute results
+        allocation = {}
+        # Map room number to 0, 1, 2 in order
+        rooms = dict()
+        for s_id in range(n):
+            r = np.argmax([student_indicator[(s_id, r)].X for r in range(n)])
+            if r not in rooms:
+                rooms[r] = len(rooms)
+            allocation[s_id] = rooms[r]
+        k = len(set([r for r in allocation.values()]))
+        assert is_valid_solution(allocation, G, s, k)
+        happiness = calculate_happiness(allocation, G)
+        if prev is None or happiness >= prev:
+            # Got better solution than the output, save current solution.
+            if f_path is not None:
+                print(f"Current solution f{happiness} is better or as good as previous solution {prev}.")
+                print(f"Writing model solutions.")
+                for ext in file_exts:
+                    f_path_ext = f_path + ext
+                    m.write(f_path_ext)
+            return allocation, k
+        else:
+            print("Did not improve on previous solution, not saving.")
+        return None, None
+    except AttributeError:
+        print("[ERROR] Did not find a solution.")
+        return None, None
+    except AssertionError:
+        print("[ERROR] Did not find a feasible solution.")
+        return None, None
