@@ -1,7 +1,7 @@
 """
 Replace this solver with whatever solver you're trying to test
 """
-from greedy_solver import solve
+from gurobi_solver import solve
 
 from utils import is_valid_solution, calculate_happiness
 from parse import read_input_file, read_output_file, write_output_file
@@ -17,10 +17,11 @@ if __name__ == "__main__":
     """
     parser = argparse.ArgumentParser(description="Test a solver on a folder of inputs, and write the outputs")
     parser.add_argument("-i", "--input", help="Folder of .in files to test on")
-    parser.add_argument("-o", "--output", default=None, help="Folder to write .out files to, files will " +
-                                                   "have the same filename as the input file (minus the '.in').")
+    parser.add_argument("-o", "--output", default=None, help="Folder to write .out files to, files will "
+                                                             "have the same filename as the input file "
+                                                             "(minus the '.in').")
     parser.add_argument("-r", "--result", default=None,
-                        help="Folder of .out files to compare the solver results against, " +
+                        help="Folder of .out files to compare the solver results against, "
                              "must have same filenames as the input file (minus the '.in').")
     args = parser.parse_args()
     ratio_results = []
@@ -45,7 +46,7 @@ if __name__ == "__main__":
                     sol_happiness = calculate_happiness(D_sol, G)
                     print("SOLUTION: Total Happiness: {}".format(sol_happiness))
                     ratio_results.append(solver_happiness / sol_happiness)
-            print("="*50)
+            print("=" * 50)
             if args.output is not None:
                 write_output_file(D, os.path.join(args.output, sol_f_name))
     if ratio_results:
