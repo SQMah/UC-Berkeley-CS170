@@ -7,7 +7,7 @@ from threading import Event
 import os
 
 val = None
-
+did_early_terminate = False
 
 @numba.njit
 def index_generator(n):
@@ -19,10 +19,12 @@ def index_generator(n):
 
 
 def soft_term(model, where):
+    global did_early_terminate
     if where == GRB.Callback.MIP:
         best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
         if best_obj >= val:
             print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
+            did_early_terminate = True
             model.terminate()
 
 
@@ -88,7 +90,7 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
         m.optimize(soft_term)  # noqa
     else:
         m.optimize()
-    if did_interrupt is not None and m.Status == GRB.INTERRUPTED:
+    if did_interrupt is not None and m.Status == GRB.INTERRUPTED and not did_early_terminate:
         did_interrupt.set()
     try:
         # Compute results
@@ -106,7 +108,7 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
         if prev is None or happiness >= prev:
             # Got better solution than the output, save current solution.
             if f_path is not None:
-                print(f"Current solution f{happiness} is better or as good as previous solution {prev}.")
+                print(f"Current solution {happiness} is better or as good as previous solution {prev}.")
                 print(f"Writing model solutions.")
                 for ext in file_exts:
                     f_path_ext = f_path + ext

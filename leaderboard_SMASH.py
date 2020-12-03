@@ -108,9 +108,10 @@ if __name__ == "__main__":
                 else:
                     repo_commit(f"Remove .inprogress for {file}")
                 repo_push()
-                if interrupt_event.isSet() and not CONTINUE_ON_INTERRUPT:
+                if interrupt_event.isSet():
                     interrupt_event.clear()
-                    break
+                    if not CONTINUE_ON_INTERRUPT:
+                        break
     except KeyboardInterrupt:
         if current_progress_f_path is not None and os.path.isfile(current_progress_f_path):
             print("Exiting...")
