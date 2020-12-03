@@ -59,9 +59,18 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
     m = gp.Model(f"Maximum happiness")
     # student_indicator[i][j] == 1, student i is in room j
     student_indicator = m.addVars(n, n, vtype=GRB.BINARY, name="student_indicator")
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                student_indicator[i, j].start = 1
+            else:
+                student_indicator[i, j].start = 0
     # room[i] == 1 means room at index i exists.
     room_indicator = m.addVars(n, vtype=GRB.BINARY, name="room_indicator")
     room_stress = m.addVars(n, vtype=GRB.CONTINUOUS, name="room_stress")
+    for i in range(n):
+        room_indicator[i].start = 1
+        room_stress[i].start = 0.0
     # Constrain that each student can only be in one room, and has to be in one room
     m.addConstrs(student_indicator.sum(i, '*') == 1 for i in range(n))
     m.addConstrs(room_stress[r] == gp.quicksum(
@@ -76,6 +85,7 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
             G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
             for index in indices) for r in range(n)),
         GRB.MAXIMIZE)
+    m.update()
     f_path = None
     file_exts = {".sol"}
     if filename is not None and output_dir is not None:
