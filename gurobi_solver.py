@@ -4,7 +4,7 @@ import numba
 import numpy as np
 
 val = None
-
+m = None
 
 @numba.njit
 def index_generator(n):
@@ -39,6 +39,7 @@ def solve(G, s, early_terminate=False, obj=None):
         k: Number of breakout rooms
     """
     global val
+    global m
     val = obj
     n = len(G.nodes)
     indices = index_generator(n)
