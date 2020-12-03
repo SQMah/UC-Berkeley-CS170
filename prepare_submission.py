@@ -1,7 +1,7 @@
 import sys
 import os
 import json
-from parse import validate_file
+from parser import validate_file
 
 if __name__ == '__main__':
     outputs_dir = sys.argv[1]

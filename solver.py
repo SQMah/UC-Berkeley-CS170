@@ -1,5 +1,5 @@
 import networkx as nx
-from parse import read_input_file, write_output_file
+from parser import read_input_file, write_output_file
 from utils import is_valid_solution, calculate_happiness, convert_dictionary
 import sys
 import glob

@@ -2,26 +2,24 @@ import gurobipy.gurobipy as gp
 from gurobipy.gurobipy import GRB
 import numba
 import numpy as np
-from functools import partial
 
 val = None
 
+
 @numba.njit
 def index_generator(n):
-    vals = []
+    values = []
     for i in range(n):
         for j in range(i + 1, n):
-            vals.append((i, j))
-    return vals
+            values.append((i, j))
+    return values
 
 
-def softterm(model, where):
+def soft_term(model, where):
     if where == GRB.Callback.MIP:
-        runtime = model.cbGet(GRB.Callback.RUNTIME)
-        objbst = model.cbGet(GRB.Callback.MIP_OBJBST)
-        objbnd = model.cbGet(GRB.Callback.MIP_OBJBND)
-        if objbst >= val:
-            print(f"EARLY TERMINATION. Found: {objbst}, leaderboard: {val}")
+        best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
+        if best_obj >= val:
+            print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
             model.terminate()
 
 
@@ -34,6 +32,8 @@ def solve(G, s, early_terminate=False, obj=None):
         stress budget
     :param early_terminate: bool
         if true, will terminate the optimization when objective found is >= than what is currently on the leaderboard
+    :param obj: float
+        Value to terminate when exceeded.
     :return: tuple
         D: Dictionary mapping for student to breakout room r e.g. {0:2, 1:0, 2:1, 3:2}
         k: Number of breakout rooms
@@ -55,15 +55,16 @@ def solve(G, s, early_terminate=False, obj=None):
         for index in indices) for r in range(n))
     # Constrain that if a room does not exist, then students can't be assigned to that room.
     for k in range(0, n):
-        m.addGenConstrIndicator(room_indicator[k], False, student_indicator.sum('*', k) == 0)
+        m.addGenConstrIndicator(room_indicator[k], False, student_indicator.sum('*', k) == 0) # noqa
     m.addConstrs((room_stress[r] * room_indicator.sum() <= s for r in range(n)), name="s_max")
+    m.addVar(lb=0, )
     m.setObjective(
         sum(gp.quicksum(
             G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
             for index in indices) for r in range(n)),
         GRB.MAXIMIZE)
     if early_terminate:
-        m.optimize(softterm) # noqa
+        m.optimize(soft_term)  # noqa
     else:
         m.optimize()
 
