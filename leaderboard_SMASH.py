@@ -87,6 +87,7 @@ if __name__ == "__main__":
                 with open(partial_f_path, 'w') as f:
                     f.write('b r u h\n')
                 repo_add(partial_f_path)
+                repo_commit(f"{file} inprogress")
                 repo_push()
                 current_progress_f_path = current_progress_f_path
                 bare_filename = file.replace(".in", "")
