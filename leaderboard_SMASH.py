@@ -23,7 +23,7 @@ if __name__ == "__main__":
             leaderboard = json.load(f)
         dir_list = os.listdir(folder)
         for file in dir_list:
-            if os.path.splitext(file)[1] == ".in":
+            if os.path.splitext(file)[1] == ".in" and "medium" in file:
                 origin.pull()
                 print("=" * 50)
                 input_f_path = os.path.join(args.input, file)
@@ -56,8 +56,12 @@ if __name__ == "__main__":
                 print(f"[PUSH] {partial_f_name} in progress to repo.")
                 D, k = solve(G, s, early_terminate=True, obj=leaderboard[file])
                 assert is_valid_solution(D, G, s, k)
+                solver_happiness = calculate_happiness(D, G)
+                print("SOLVER: Total Happiness: {}".format(solver_happiness))
                 os.remove(partial_f_path)
+                repo.remove(partial_f_path)
                 write_output_file(D, output_f_path)
+                repo.add(output_f_path)
                 repo.index.commit(f"Found solution for {file}")
                 origin.push()
     except KeyboardInterrupt:
