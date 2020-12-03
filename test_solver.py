@@ -30,7 +30,7 @@ if __name__ == "__main__":
     if args.output is not None and not os.path.isdir(args.output):
         os.mkdir(args.output)
     for file in dir_list:
-        if os.path.splitext(file)[1] == ".in" and file == "med-100.in":
+        if os.path.splitext(file)[1] == ".in" and file == "medium-200.in":
             print(f"Processing {file}")
             path = os.path.join(folder, file)
             sol_f_name = file.replace(".in", ".out")

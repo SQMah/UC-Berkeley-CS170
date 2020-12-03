@@ -2,7 +2,9 @@ import gurobipy.gurobipy as gp
 from gurobipy.gurobipy import GRB
 import numba
 import numpy as np
+from functools import partial
 
+val = None
 
 @numba.njit
 def index_generator(n):
@@ -18,10 +20,12 @@ def softterm(model, where):
         runtime = model.cbGet(GRB.Callback.RUNTIME)
         objbst = model.cbGet(GRB.Callback.MIP_OBJBST)
         objbnd = model.cbGet(GRB.Callback.MIP_OBJBND)
-        print(objbst)
+        if objbst >= val:
+            print(f"EARLY TERMINATION. Found: {objbst}, leaderboard: {val}")
+            model.terminate()
 
 
-def solve(G, s, early_terminate=True):
+def solve(G, s, early_terminate=False, obj=None):
     """
     Iterates through every possible k, from 1 to len(G.nodes) and takes the maximum.
     Results calculated using gurobi.
@@ -34,6 +38,8 @@ def solve(G, s, early_terminate=True):
         D: Dictionary mapping for student to breakout room r e.g. {0:2, 1:0, 2:1, 3:2}
         k: Number of breakout rooms
     """
+    global val
+    val = obj
     n = len(G.nodes)
     indices = index_generator(n)
     m = gp.Model(f"Maximum happiness")
