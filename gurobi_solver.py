@@ -58,11 +58,12 @@ def solve(G, s, early_terminate=False, obj=None):
     for k in range(0, n):
         m.addGenConstrIndicator(room_indicator[k], False, student_indicator.sum('*', k) == 0) # noqa
     m.addConstrs((room_stress[r] * room_indicator.sum() <= s for r in range(n)), name="s_max")
-    m.addVar(lb=0, )
-    m.setObjective(
-        sum(gp.quicksum(
+    total_happiness = m.addVar(vtype=GRB.CONTINUOUS, lb=0) # noqa
+    m.addConstr(total_happiness == sum(gp.quicksum(
             G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
-            for index in indices) for r in range(n)),
+            for index in indices) for r in range(n))) # noqa
+    m.setObjective(
+        total_happiness,
         GRB.MAXIMIZE)
     if early_terminate:
         m.optimize(soft_term)  # noqa
