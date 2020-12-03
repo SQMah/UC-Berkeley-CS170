@@ -53,11 +53,13 @@ if __name__ == "__main__":
                 repo.index.commit(f"Add {partial_f_name}")
                 origin.push()
                 current_progress_f_path = current_progress_f_path
-                print(f"[Pushed] {partial_f_name} in progress to repo.")
+                print(f"[PUSH] {partial_f_name} in progress to repo.")
                 D, k = solve(G, s, early_terminate=True, obj=leaderboard[file])
                 assert is_valid_solution(D, G, s, k)
                 os.remove(partial_f_path)
                 write_output_file(D, output_f_path)
+                repo.index.commit(f"Found solution for {file}")
+                origin.push()
     except KeyboardInterrupt:
         if current_progress_f_path is not None and os.path.isfile(current_progress_f_path):
             print("Exiting...")
@@ -65,4 +67,4 @@ if __name__ == "__main__":
             print(f"Removing in progress file at {current_progress_f_path}")
             repo.commit(f"Remove progress file {os.path.basename(current_progress_f_path)}")
             origin.push()
-            print(f"[Pushed] Removed {os.path.basename(current_progress_f_path)} in progress to repo.")
+            print(f"[PUSH] Removed {os.path.basename(current_progress_f_path)} in progress to repo.")
