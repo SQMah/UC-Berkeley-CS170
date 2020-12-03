@@ -1,5 +1,5 @@
 from input_generator import generate_input, generate_output
-from parse import read_output_file, validate_file, read_input_file
+from parser import read_output_file, validate_file, read_input_file
 from utils import calculate_stress_for_room, calculate_happiness_for_room, calculate_happiness, room_to_student
 import os
 

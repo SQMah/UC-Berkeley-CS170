@@ -4,7 +4,7 @@ Replace this solver with whatever solver you're trying to test
 from gurobi_solver import solve
 
 from utils import is_valid_solution, calculate_happiness
-from parse import read_input_file, read_output_file, write_output_file
+from parser import read_input_file, read_output_file, write_output_file
 import os
 import argparse
 

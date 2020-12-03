@@ -1,4 +1,4 @@
-from parse import read_input_file, write_output_file
+from parser import read_input_file, write_output_file
 from utils import is_valid_solution, calculate_happiness
 import sys
 from functools import partial
