@@ -1,5 +1,5 @@
-import gurobipy.gurobipy as gp
-from gurobipy.gurobipy import GRB
+import gurobipy as gp
+from gurobipy import GRB
 import numba
 import numpy as np
 from utils import is_valid_solution, calculate_happiness
