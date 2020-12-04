@@ -54,11 +54,14 @@ def index_generator(n):
     return values
 
 def save_model(model):
-    if model_path is not None:
-        model.write(model_path)
-        repo_add(model_path)
-        repo_commit(f"Update sol at {model_path}")
-        repo_push()
+    try:
+        if model_path is not None:
+            model.write(model_path)
+            repo_add(model_path)
+            repo_commit(f"Update sol at {model_path}")
+            repo_push()
+    except gp.GurobiError:
+        pass
 
 def soft_term(model, where):
     global did_early_terminate
@@ -66,12 +69,6 @@ def soft_term(model, where):
     global prev_val
     if where == GRB.Callback.MIP:
         best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
-        if prev_obj is None:
-            save_model(model)
-            prev_obj = best_obj
-        if best_obj > prev_obj and (prev_val is None or best_obj > prev_val):
-            save_model(model)
-            prev_obj = best_obj
         if ep is not None:
             diff = abs(best_obj-val)
             if diff <= ep:
@@ -82,6 +79,11 @@ def soft_term(model, where):
             print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
             did_early_terminate = True
             model.terminate()
+    elif where == GRB.Callback.MIPSOL:
+        best_obj = model.cbGet(GRB.Callback.MIPSOL_OBJBST)
+        if prev_val is None or best_obj > prev_val:
+            save_model(model)
+            prev_obj = best_obj
 
 
 def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, prev: float = None,
