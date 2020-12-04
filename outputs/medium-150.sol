@@ -1,5 +1,5 @@
 # Solution for model Maximum happiness
-# Objective value = 2661.423
+# Objective value = 2.6614230252283110e+03
 student_indicator[0,0] 1
 student_indicator[0,1] 0
 student_indicator[0,2] 0
@@ -429,15 +429,15 @@ room_stress[5] 0
 room_stress[6] 0
 room_stress[7] 0
 room_stress[8] 0
-room_stress[9] 1.3561000000000002e+01
+room_stress[9] 13.561
 room_stress[10] 0
 room_stress[11] 0
 room_stress[12] 0
 room_stress[13] 0
-room_stress[14] 0
+room_stress[14] 5.1803964427742773e-07
 room_stress[15] 0
 room_stress[16] 2.3464000000000002e+01
 room_stress[17] 0
 room_stress[18] 0
-room_stress[19] 2.4761999999999997e+01
-total_happiness 2661.423
+room_stress[19] 24.762
+total_happiness 2.6614230252283110e+03
