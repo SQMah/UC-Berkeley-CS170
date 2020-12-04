@@ -13,53 +13,6 @@ prev_obj = None
 prev_val = None
 model_path = None
 
-def repo_add(file_path):
-    repo = Repo(os.path.join(os.getcwd(), ".git"))
-    repo.git.add(file_path)
-    print(f"[GIT] add {file_path}")
-
-
-def repo_rm(file_path):
-    repo = Repo(os.path.join(os.getcwd(), ".git"))
-    repo.git.rm(file_path)
-    print(f"[GIT] rm {file_path}")
-
-
-def repo_pull():
-    repo = Repo(os.path.join(os.getcwd(), ".git"))
-    origin = repo.remote(name='origin')
-    origin.pull()
-    print(f"[GIT] pull")
-
-
-def repo_commit(msg):
-    repo = Repo(os.path.join(os.getcwd(), ".git"))
-    repo.index.commit(msg)
-    print(f"[GIT] {msg}")
-
-
-def repo_push():
-    repo = Repo(os.path.join(os.getcwd(), ".git"))
-    origin = repo.remote(name='origin')
-    origin.push()
-    print("[GIT] Pushed to repo.")
-
-
-@numba.njit
-def index_generator(n):
-    values = []
-    for i in range(n):
-        for j in range(i + 1, n):
-            values.append((i, j))
-    return values
-
-def save_model(model):
-    if model_path is not None:
-        model.write(model_path)
-        repo_add(model_path)
-        repo_commit(f"Update sol at {model_path}")
-        repo_push()
-
 def soft_term(model, where):
     global did_early_terminate
     global prev_obj
@@ -76,11 +29,6 @@ def soft_term(model, where):
             print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
             did_early_terminate = True
             model.terminate()
-    elif where == GRB.Callback.MIPSOL:
-        best_obj = model.cbGet(GRB.Callback.MIPSOL_OBJBST)
-        if prev_val is None or best_obj > prev_val:
-            save_model(model)
-            prev_obj = best_obj
 
 
 def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, prev: float = None,
