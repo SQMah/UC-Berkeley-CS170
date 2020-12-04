@@ -1,5 +1,5 @@
 # Solution for model Maximum happiness
-# Objective value = 3157.36
+# Objective value = 3.1573599999999997e+03
 student_indicator[0,0] 0
 student_indicator[0,1] 0
 student_indicator[0,2] 0

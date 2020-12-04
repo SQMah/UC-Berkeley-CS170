@@ -10,6 +10,10 @@ from threading import Event
 
 CONTINUE_ON_INTERRUPT = False
 TIMEOUT_S = float("inf")
+EPSILON = 10e-4
+
+
+
 current_progress_f_path = None
 
 
@@ -60,30 +64,54 @@ if __name__ == "__main__":
         interrupt_event = Event()
         for file in dir_list:
             if os.path.splitext(file)[1] == ".in":
-                repo_pull()
                 print("=" * 50)
                 input_f_path = os.path.join(args.input, file)
                 output_f_name = file.replace(".in", ".out")
                 output_f_path = os.path.join(args.output, output_f_name)
                 partial_f_path = output_f_path.replace(".out", ".inprogress")
                 partial_f_name = os.path.basename(partial_f_path)
+                output_happiness = float("-inf")
                 G, s = read_input_file(input_f_path)
-                if os.path.isfile(partial_f_path):
-                    print(f"Skipping processing {file}, partial output found")
-                    continue
-                output_happiness = None
                 if os.path.isfile(output_f_path):
                     D_out = read_output_file(output_f_path, G, s)
-                    output_happiness = calculate_happiness(D_out, G)
-                    if output_happiness >= leaderboard[file]:
+                    output_happiness = max(output_happiness, calculate_happiness(D_out, G))
+                    diff = abs(output_happiness - leaderboard[file])
+                    if diff <= EPSILON:
                         print(f"Skipping processing {file}, output happiness: {output_happiness}, "
                               f"leaderboard happiness: {leaderboard[file]}")
                         continue
                     else:
-                        print(f"Processing {file}, output happiness: {output_happiness} "
-                              f"lower than leaderboard happiness: {leaderboard[file]}")
+                        repo_pull()
+                        D_out = read_output_file(output_f_path, G, s)
+                        output_happiness = max(output_happiness, calculate_happiness(D_out, G))
+                        diff = abs(output_happiness - leaderboard[file])
+                        if diff <= EPSILON:
+                            print(f"Skipping processing {file}, output happiness: {output_happiness}, "
+                                  f"leaderboard happiness: {leaderboard[file]}")
+                            continue
+                        else:
+                            print(f"Processing {file}, output happiness: {output_happiness} "
+                                  f"lower than leaderboard happiness: {leaderboard[file]}")
                 else:
-                    print(f"Processing {file}, because output not found.")
+                    repo_pull()
+                    if os.path.isfile(output_f_path):
+                        D_out = read_output_file(output_f_path, G, s)
+                        output_happiness = max(output_happiness, calculate_happiness(D_out, G))
+                        diff = abs(output_happiness - leaderboard[file])
+                        if diff <= EPSILON:
+                            print(f"Skipping processing {file}, output happiness: {output_happiness}, "
+                                  f"leaderboard happiness: {leaderboard[file]}")
+                            continue
+                        else:
+                            print(f"Processing {file}, output happiness: {output_happiness} "
+                                  f"lower than leaderboard happiness: {leaderboard[file]}")
+                    else:
+                        print(f"Processing {file}, because output not found.")
+                repo_pull()
+                if os.path.isfile(partial_f_path):
+                    print(f"Skipping processing {file}, partial output found")
+                    continue
+
                 with open(partial_f_path, 'w') as f:
                     f.write('b r u h\n')
                 repo_add(partial_f_path)
@@ -92,7 +120,7 @@ if __name__ == "__main__":
                 current_progress_f_path = current_progress_f_path
                 bare_filename = file.replace(".in", "")
                 D, k = solve(G, s, early_terminate=True, obj=leaderboard[file], did_interrupt=interrupt_event,
-                             prev=output_happiness, filename=bare_filename, output_dir=args.output)
+                             prev=output_happiness, filename=bare_filename, output_dir=args.output, epsilon=EPSILON)
                 did_improve = False
                 if D is not None and k is not None:
                     solver_happiness = calculate_happiness(D, G)

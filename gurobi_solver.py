@@ -8,6 +8,7 @@ import os
 
 val = None
 did_early_terminate = False
+ep = None
 
 
 @numba.njit
@@ -23,6 +24,12 @@ def soft_term(model, where):
     global did_early_terminate
     if where == GRB.Callback.MIP:
         best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
+        if ep is not None:
+            diff = abs(best_obj-val)
+            if diff <= ep:
+                print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
+                did_early_terminate = True
+                model.terminate()
         if best_obj >= val:
             print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
             did_early_terminate = True
@@ -30,7 +37,7 @@ def soft_term(model, where):
 
 
 def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, prev: float = None,
-          filename: str = None, output_dir: str = None):
+          filename: str = None, output_dir: str = None, epsilon: float = None):
     """
     Iterates through every possible k, from 1 to len(G.nodes) and takes the maximum.
     Results calculated using gurobi.
@@ -49,11 +56,15 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
         Filename of input file without the .in
     :param output_dir: str
         Path to output directory to look for model files.
+    :param epsilon: float
+        When a solution the optimal +- epsilon, can terminate.
     :return: tuple
         D: Dictionary mapping for student to breakout room r e.g. {0:2, 1:0, 2:1, 3:2}
         k: Number of breakout rooms
     """
     global val
+    global ep
+    ep = epsilon
     val = obj
     n = len(G.nodes)
     indices = index_generator(n)
@@ -63,20 +74,23 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
     # room[i] == 1 means room at index i exists.
     room_indicator = m.addVars(n, vtype=GRB.BINARY, name="room_indicator")
     room_stress = m.addVars(n, vtype=GRB.CONTINUOUS, name="room_stress")
+    total_happiness = m.addVar(vtype=GRB.CONTINUOUS, name="total_happiness", lb=0.0, obj=1.0) # noqa
+    if obj is not None:
+        total_happiness.setAttr(GRB.Attr.UB, obj + 2.0)
+        total_happiness.setAttr(GRB.Attr.VarHintVal, obj)
     # Constrain that each student can only be in one room, and has to be in one room
     m.addConstrs(student_indicator.sum(i, '*') == 1 for i in range(n))
     m.addConstrs(room_stress[r] == gp.quicksum(
         G.get_edge_data(*index)["stress"] * student_indicator[index[0], r] * student_indicator[index[1], r]
         for index in indices) for r in range(n))
     # Constrain that if a room does not exist, then students can't be assigned to that room.
+    m.addConstr(sum(gp.quicksum(
+            G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
+            for index in indices) for r in range(n)) == total_happiness, name="happiness_constraint")
     for k in range(0, n):
         m.addGenConstrIndicator(room_indicator[k], False, student_indicator.sum('*', k) == 0)  # noqa
     m.addConstrs((room_stress[r] * room_indicator.sum() <= s for r in range(n)), name="s_max")
-    m.setObjective(
-        sum(gp.quicksum(
-            G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
-            for index in indices) for r in range(n)),
-        GRB.MAXIMIZE)
+    m.setObjective(total_happiness, GRB.MAXIMIZE)
     f_path = None
     file_exts = {".sol"}
     if filename is not None and output_dir is not None:
