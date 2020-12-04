@@ -74,20 +74,22 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
     # room[i] == 1 means room at index i exists.
     room_indicator = m.addVars(n, vtype=GRB.BINARY, name="room_indicator")
     room_stress = m.addVars(n, vtype=GRB.CONTINUOUS, name="room_stress")
+    total_happiness = m.addVar(vtype=GRB.CONTINUOUS, name="total_happiness", lb=0.0, obj=1.0) # noqa
+    if obj is not None:
+        total_happiness.setAttr(GRB.Attr.VarHintVal, obj)
     # Constrain that each student can only be in one room, and has to be in one room
     m.addConstrs(student_indicator.sum(i, '*') == 1 for i in range(n))
     m.addConstrs(room_stress[r] == gp.quicksum(
         G.get_edge_data(*index)["stress"] * student_indicator[index[0], r] * student_indicator[index[1], r]
         for index in indices) for r in range(n))
     # Constrain that if a room does not exist, then students can't be assigned to that room.
+    m.addConstr(sum(gp.quicksum(
+            G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
+            for index in indices) for r in range(n)) == total_happiness, name="happiness_constraint")
     for k in range(0, n):
         m.addGenConstrIndicator(room_indicator[k], False, student_indicator.sum('*', k) == 0)  # noqa
     m.addConstrs((room_stress[r] * room_indicator.sum() <= s for r in range(n)), name="s_max")
-    m.setObjective(
-        sum(gp.quicksum(
-            G.get_edge_data(*index)["happiness"] * student_indicator[index[0], r] * student_indicator[index[1], r]
-            for index in indices) for r in range(n)),
-        GRB.MAXIMIZE)
+    m.setObjective(total_happiness, GRB.MAXIMIZE)
     f_path = None
     file_exts = {".sol"}
     if filename is not None and output_dir is not None:
