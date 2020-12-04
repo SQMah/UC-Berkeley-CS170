@@ -9,6 +9,9 @@ import os
 val = None
 did_early_terminate = False
 ep = None
+prev_obj = None
+prev_val = None
+model_path = None
 
 
 @numba.njit
@@ -19,9 +22,10 @@ def index_generator(n):
             values.append((i, j))
     return values
 
-
 def soft_term(model, where):
     global did_early_terminate
+    global prev_obj
+    global prev_val
     if where == GRB.Callback.MIP:
         best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
         if ep is not None:
@@ -64,8 +68,12 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
     """
     global val
     global ep
+    global prev_val
+    global model_path
+    model_path = os.path.join(output_dir, filename) + ".sol"
     ep = epsilon
     val = obj
+    prev_val = prev
     n = len(G.nodes)
     indices = index_generator(n)
     m = gp.Model(f"Maximum happiness")
