@@ -10,6 +10,10 @@ from threading import Event
 
 CONTINUE_ON_INTERRUPT = False
 TIMEOUT_S = float("inf")
+EPSILON = 10e-4
+
+
+
 current_progress_f_path = None
 
 
@@ -75,7 +79,8 @@ if __name__ == "__main__":
                 if os.path.isfile(output_f_path):
                     D_out = read_output_file(output_f_path, G, s)
                     output_happiness = calculate_happiness(D_out, G)
-                    if output_happiness >= leaderboard[file]:
+                    diff = abs(output_happiness - leaderboard[file])
+                    if diff >= EPSILON:
                         print(f"Skipping processing {file}, output happiness: {output_happiness}, "
                               f"leaderboard happiness: {leaderboard[file]}")
                         continue
