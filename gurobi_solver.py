@@ -24,7 +24,7 @@ def soft_term(model, where):
     global did_early_terminate
     if where == GRB.Callback.MIP:
         best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
-        if epsilon is not None:
+        if ep is not None:
             diff = abs(best_obj-val)
             if diff <= ep:
                 print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
