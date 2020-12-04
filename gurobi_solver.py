@@ -9,6 +9,40 @@ import os
 val = None
 did_early_terminate = False
 ep = None
+prev_obj = None
+prev_val = None
+model_path = None
+
+def repo_add(file_path):
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    repo.git.add(file_path)
+    print(f"[GIT] add {file_path}")
+
+
+def repo_rm(file_path):
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    repo.git.rm(file_path)
+    print(f"[GIT] rm {file_path}")
+
+
+def repo_pull():
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    origin = repo.remote(name='origin')
+    origin.pull()
+    print(f"[GIT] pull")
+
+
+def repo_commit(msg):
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    repo.index.commit(msg)
+    print(f"[GIT] {msg}")
+
+
+def repo_push():
+    repo = Repo(os.path.join(os.getcwd(), ".git"))
+    origin = repo.remote(name='origin')
+    origin.push()
+    print("[GIT] Pushed to repo.")
 
 
 @numba.njit
@@ -19,11 +53,25 @@ def index_generator(n):
             values.append((i, j))
     return values
 
+def save_model(model):
+    if model_path is not None:
+        model.write(model_path)
+        repo_add(model_path)
+        repo_commit(f"Update sol at {model_path}")
+        repo_push()
 
 def soft_term(model, where):
     global did_early_terminate
+    global prev_obj
+    global prev_val
     if where == GRB.Callback.MIP:
         best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
+        if prev_obj is None:
+            save_model(model)
+            prev_obj = best_obj
+        if best_obj > prev_obj and (prev_val is None or best_obj > prev_val):
+            save_model(model)
+            prev_obj = best_obj
         if ep is not None:
             diff = abs(best_obj-val)
             if diff <= ep:
@@ -64,8 +112,12 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
     """
     global val
     global ep
+    global prev_val
+    global model_path
+    model_path = os.path.join(output_dir, filename) + ".sol"
     ep = epsilon
     val = obj
+    prev_val = prev
     n = len(G.nodes)
     indices = index_generator(n)
     m = gp.Model(f"Maximum happiness")
