@@ -97,7 +97,7 @@ if __name__ == "__main__":
                 current_progress_f_path = current_progress_f_path
                 bare_filename = file.replace(".in", "")
                 D, k = solve(G, s, early_terminate=True, obj=leaderboard[file], did_interrupt=interrupt_event,
-                             prev=output_happiness, filename=bare_filename, output_dir=args.output)
+                             prev=output_happiness, filename=bare_filename, output_dir=args.output, epsilon=EPSILON)
                 did_improve = False
                 if D is not None and k is not None:
                     solver_happiness = calculate_happiness(D, G)

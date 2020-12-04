@@ -8,6 +8,7 @@ import os
 
 val = None
 did_early_terminate = False
+ep = None
 
 
 @numba.njit
@@ -23,6 +24,12 @@ def soft_term(model, where):
     global did_early_terminate
     if where == GRB.Callback.MIP:
         best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
+        if epsilon is not None:
+            diff = abs(best_obj-val)
+            if diff <= ep:
+                print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
+                did_early_terminate = True
+                model.terminate()
         if best_obj >= val:
             print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
             did_early_terminate = True
@@ -30,7 +37,7 @@ def soft_term(model, where):
 
 
 def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, prev: float = None,
-          filename: str = None, output_dir: str = None):
+          filename: str = None, output_dir: str = None, epsilon: float = None):
     """
     Iterates through every possible k, from 1 to len(G.nodes) and takes the maximum.
     Results calculated using gurobi.
@@ -49,11 +56,15 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
         Filename of input file without the .in
     :param output_dir: str
         Path to output directory to look for model files.
+    :param epsilon: float
+        When a solution the optimal +- epsilon, can terminate.
     :return: tuple
         D: Dictionary mapping for student to breakout room r e.g. {0:2, 1:0, 2:1, 3:2}
         k: Number of breakout rooms
     """
     global val
+    global ep
+    ep = epsilon
     val = obj
     n = len(G.nodes)
     indices = index_generator(n)
