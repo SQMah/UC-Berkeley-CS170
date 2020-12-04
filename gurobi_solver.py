@@ -54,14 +54,11 @@ def index_generator(n):
     return values
 
 def save_model(model):
-    try:
-        if model_path is not None:
-            model.write(model_path)
-            repo_add(model_path)
-            repo_commit(f"Update sol at {model_path}")
-            repo_push()
-    except gp.GurobiError:
-        pass
+    if model_path is not None:
+        model.write(model_path)
+        repo_add(model_path)
+        repo_commit(f"Update sol at {model_path}")
+        repo_push()
 
 def soft_term(model, where):
     global did_early_terminate
