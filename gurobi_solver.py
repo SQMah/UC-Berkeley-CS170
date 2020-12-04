@@ -13,6 +13,15 @@ prev_obj = None
 prev_val = None
 model_path = None
 
+
+@numba.njit
+def index_generator(n):
+    values = []
+    for i in range(n):
+        for j in range(i + 1, n):
+            values.append((i, j))
+    return values
+
 def soft_term(model, where):
     global did_early_terminate
     global prev_obj
