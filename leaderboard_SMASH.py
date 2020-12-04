@@ -70,10 +70,11 @@ if __name__ == "__main__":
                 output_f_path = os.path.join(args.output, output_f_name)
                 partial_f_path = output_f_path.replace(".out", ".inprogress")
                 partial_f_name = os.path.basename(partial_f_path)
+                output_happiness = float("-inf")
                 G, s = read_input_file(input_f_path)
                 if os.path.isfile(output_f_path):
                     D_out = read_output_file(output_f_path, G, s)
-                    output_happiness = calculate_happiness(D_out, G)
+                    output_happiness = max(output_happiness, calculate_happiness(D_out, G))
                     diff = abs(output_happiness - leaderboard[file])
                     if diff <= EPSILON:
                         print(f"Skipping processing {file}, output happiness: {output_happiness}, "
@@ -82,7 +83,7 @@ if __name__ == "__main__":
                     else:
                         repo_pull()
                         D_out = read_output_file(output_f_path, G, s)
-                        output_happiness = calculate_happiness(D_out, G)
+                        output_happiness = max(output_happiness, calculate_happiness(D_out, G))
                         diff = abs(output_happiness - leaderboard[file])
                         if diff <= EPSILON:
                             print(f"Skipping processing {file}, output happiness: {output_happiness}, "
@@ -95,7 +96,7 @@ if __name__ == "__main__":
                     repo_pull()
                     if os.path.isfile(output_f_path):
                         D_out = read_output_file(output_f_path, G, s)
-                        output_happiness = calculate_happiness(D_out, G)
+                        output_happiness = max(output_happiness, calculate_happiness(D_out, G))
                         diff = abs(output_happiness - leaderboard[file])
                         if diff <= EPSILON:
                             print(f"Skipping processing {file}, output happiness: {output_happiness}, "
@@ -110,7 +111,6 @@ if __name__ == "__main__":
                 if os.path.isfile(partial_f_path):
                     print(f"Skipping processing {file}, partial output found")
                     continue
-                output_happiness = None
 
                 with open(partial_f_path, 'w') as f:
                     f.write('b r u h\n')
