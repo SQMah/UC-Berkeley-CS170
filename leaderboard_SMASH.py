@@ -63,7 +63,7 @@ if __name__ == "__main__":
         dir_list = os.listdir(folder)
         interrupt_event = Event()
         for file in dir_list:
-            if os.path.splitext(file)[1] == ".in" and "medium" in file:
+            if os.path.splitext(file)[1] == ".in":
                 print("=" * 50)
                 input_f_path = os.path.join(args.input, file)
                 output_f_name = file.replace(".in", ".out")
