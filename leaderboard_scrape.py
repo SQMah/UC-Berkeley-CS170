@@ -48,7 +48,7 @@ def scrape_leaderboard_helper(file_path):
     if os.path.isfile(file_path):
         file = os.path.basename(file_path)
         name, ext = os.path.splitext(file)
-        if ext == ".in" and "small" not in file:
+        if ext == ".in":
             # This is an input file
             size, num = name.split('-')
             url = f"https://berkeley-cs170.github.io/project-leaderboard-fa20/?size={size}&num={num}"
