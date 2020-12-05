@@ -63,7 +63,7 @@ if __name__ == "__main__":
         dir_list = os.listdir(folder)
         interrupt_event = Event()
         for file in dir_list:
-            if os.path.splitext(file)[1] == ".in":
+            if os.path.splitext(file)[1] == ".in" and "medium" in file:
                 print("=" * 50)
                 input_f_path = os.path.join(args.input, file)
                 output_f_name = file.replace(".in", ".out")
@@ -75,7 +75,7 @@ if __name__ == "__main__":
                 if os.path.isfile(output_f_path):
                     D_out = read_output_file(output_f_path, G, s)
                     output_happiness = max(output_happiness, calculate_happiness(D_out, G))
-                    diff = abs(output_happiness - leaderboard[file])
+                    diff = leaderboard[file] - output_happiness
                     if diff <= EPSILON:
                         print(f"Skipping processing {file}, output happiness: {output_happiness}, "
                               f"leaderboard happiness: {leaderboard[file]}")
