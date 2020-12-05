@@ -7,12 +7,9 @@ import json
 from git import Repo
 from threading import Event
 
-
 CONTINUE_ON_INTERRUPT = False
-TIMEOUT_S = float("inf")
+TIMEOUT_S = 1000
 EPSILON = 10e-4
-
-
 
 current_progress_f_path = None
 
@@ -120,7 +117,8 @@ if __name__ == "__main__":
                 current_progress_f_path = current_progress_f_path
                 bare_filename = file.replace(".in", "")
                 D, k = solve(G, s, early_terminate=True, obj=leaderboard[file], did_interrupt=interrupt_event,
-                             prev=output_happiness, filename=bare_filename, output_dir=args.output, epsilon=EPSILON)
+                             prev=output_happiness, filename=bare_filename, output_dir=args.output, epsilon=EPSILON,
+                             timeout_s=TIMEOUT_S)
                 did_improve = False
                 if D is not None and k is not None:
                     solver_happiness = calculate_happiness(D, G)

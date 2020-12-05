@@ -12,6 +12,7 @@ ep = None
 prev_obj = None
 prev_val = None
 model_path = None
+timeout_s_val = None
 
 
 @numba.njit
@@ -26,6 +27,7 @@ def soft_term(model, where):
     global did_early_terminate
     global prev_obj
     global prev_val
+    global timeout_s_val
     if where == GRB.Callback.MIP:
         best_obj = model.cbGet(GRB.Callback.MIP_OBJBST)
         if ep is not None:
@@ -38,10 +40,16 @@ def soft_term(model, where):
             print(f"EARLY TERMINATION. Found happiness: {best_obj}, leaderboard happiness: {val}")
             did_early_terminate = True
             model.terminate()
+        runtime = model.cbGet(GRB.Callback.RUNTIME)
+        if timeout_s_val is not None:
+            if runtime > timeout_s_val:
+                print(f"EARLY TERMINATION. Runtime {runtime} exceeded {timeout_s_val}.")
+                did_early_terminate = True
+                model.terminate()
 
 
 def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, prev: float = None,
-          filename: str = None, output_dir: str = None, epsilon: float = None):
+          filename: str = None, output_dir: str = None, epsilon: float = None, timeout_s=None):
     """
     Iterates through every possible k, from 1 to len(G.nodes) and takes the maximum.
     Results calculated using gurobi.
@@ -62,6 +70,8 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
         Path to output directory to look for model files.
     :param epsilon: float
         When a solution the optimal +- epsilon, can terminate.
+    :param timeout_s: float
+        Force terminate after timeout_s
     :return: tuple
         D: Dictionary mapping for student to breakout room r e.g. {0:2, 1:0, 2:1, 3:2}
         k: Number of breakout rooms
@@ -70,10 +80,12 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
     global ep
     global prev_val
     global model_path
+    global timeout_s_val
     model_path = os.path.join(output_dir, filename) + ".sol"
     ep = epsilon
     val = obj
     prev_val = prev
+    timeout_s_val = timeout_s
     n = len(G.nodes)
     indices = index_generator(n)
     m = gp.Model(f"Maximum happiness")
