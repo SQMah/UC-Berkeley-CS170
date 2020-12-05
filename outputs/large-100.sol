@@ -1,5 +1,5 @@
 # Solution for model Maximum happiness
-# Objective value = 5.2183750000000764e+03
+# Objective value = 5.2196710000000039e+03
 student_indicator[0,0] 1
 student_indicator[0,1] 0
 student_indicator[0,2] 0
@@ -552,7 +552,7 @@ student_indicator[10,48] 0
 student_indicator[10,49] 0
 student_indicator[11,0] 0
 student_indicator[11,1] 0
-student_indicator[11,2] 0
+student_indicator[11,2] 1
 student_indicator[11,3] 0
 student_indicator[11,4] 0
 student_indicator[11,5] 0
@@ -588,7 +588,7 @@ student_indicator[11,34] 0
 student_indicator[11,35] 0
 student_indicator[11,36] 0
 student_indicator[11,37] 0
-student_indicator[11,38] 1
+student_indicator[11,38] 0
 student_indicator[11,39] 0
 student_indicator[11,40] 0
 student_indicator[11,41] 0
@@ -602,7 +602,7 @@ student_indicator[11,48] 0
 student_indicator[11,49] 0
 student_indicator[12,0] 0
 student_indicator[12,1] 0
-student_indicator[12,2] 1
+student_indicator[12,2] 0
 student_indicator[12,3] 0
 student_indicator[12,4] 0
 student_indicator[12,5] 0
@@ -638,7 +638,7 @@ student_indicator[12,34] 0
 student_indicator[12,35] 0
 student_indicator[12,36] 0
 student_indicator[12,37] 0
-student_indicator[12,38] 0
+student_indicator[12,38] 1
 student_indicator[12,39] 0
 student_indicator[12,40] 0
 student_indicator[12,41] 0
@@ -2552,7 +2552,7 @@ room_indicator[48] 0
 room_indicator[49] 0
 room_stress[0] 17.639
 room_stress[1] 0
-room_stress[2] 16.859
+room_stress[2] 16.864
 room_stress[3] 0
 room_stress[4] 0
 room_stress[5] 0
@@ -2588,7 +2588,7 @@ room_stress[34] 0
 room_stress[35] 0
 room_stress[36] 0
 room_stress[37] 0
-room_stress[38] 17.514
+room_stress[38] 17.5
 room_stress[39] 0
 room_stress[40] 0
 room_stress[41] 0
@@ -2600,4 +2600,4 @@ room_stress[46] 0
 room_stress[47] 0
 room_stress[48] 0
 room_stress[49] 0
-total_happiness 5.2183750000000764e+03
+total_happiness 5.2196710000000039e+03
