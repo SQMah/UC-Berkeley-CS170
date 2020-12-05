@@ -75,7 +75,7 @@ if __name__ == "__main__":
                 if os.path.isfile(output_f_path):
                     D_out = read_output_file(output_f_path, G, s)
                     output_happiness = max(output_happiness, calculate_happiness(D_out, G))
-                    diff = abs(output_happiness - leaderboard[file])
+                    diff = leaderboard[file] - output_happiness
                     if diff <= EPSILON:
                         print(f"Skipping processing {file}, output happiness: {output_happiness}, "
                               f"leaderboard happiness: {leaderboard[file]}")
