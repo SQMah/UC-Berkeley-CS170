@@ -1002,11 +1002,11 @@ student_indicator[19,48] 0
 student_indicator[19,49] 0
 student_indicator[20,0] 0
 student_indicator[20,1] 0
-student_indicator[20,2] 1.7070081069742609e-11
+student_indicator[20,2] 0
 student_indicator[20,3] 0
 student_indicator[20,4] 0
 student_indicator[20,5] 0
-student_indicator[20,6] 5.0944386824356165e-11
+student_indicator[20,6] 0
 student_indicator[20,7] 0
 student_indicator[20,8] 0
 student_indicator[20,9] 0
