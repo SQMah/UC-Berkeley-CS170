@@ -96,6 +96,7 @@ def solve(G, s, early_terminate=False, obj=None, did_interrupt: Event = None, pr
     room_stress = m.addVars(n, vtype=GRB.CONTINUOUS, name="room_stress")
     total_happiness = m.addVar(vtype=GRB.CONTINUOUS, name="total_happiness", lb=0.0, obj=1.0) # noqa
     if obj is not None:
+        total_happiness.setAttr(GRB.Attr.UB, obj + 2.0)
         total_happiness.setAttr(GRB.Attr.VarHintVal, obj)
     # Constrain that each student can only be in one room, and has to be in one room
     m.addConstrs(student_indicator.sum(i, '*') == 1 for i in range(n))
