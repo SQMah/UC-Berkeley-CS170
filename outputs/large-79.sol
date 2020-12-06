@@ -1,5 +1,5 @@
 # Solution for model Maximum happiness
-# Objective value = 1.1449300000000001e+02
+# Objective value = 1.1488300000000004e+02
 student_indicator[0,0] 1
 student_indicator[0,1] 0
 student_indicator[0,2] 0
@@ -150,7 +150,7 @@ student_indicator[2,46] 0
 student_indicator[2,47] 0
 student_indicator[2,48] 0
 student_indicator[2,49] 0
-student_indicator[3,0] 1
+student_indicator[3,0] 0
 student_indicator[3,1] 0
 student_indicator[3,2] 0
 student_indicator[3,3] 0
@@ -179,7 +179,7 @@ student_indicator[3,25] 0
 student_indicator[3,26] 0
 student_indicator[3,27] 0
 student_indicator[3,28] 0
-student_indicator[3,29] 0
+student_indicator[3,29] 1
 student_indicator[3,30] 0
 student_indicator[3,31] 0
 student_indicator[3,32] 0
@@ -200,7 +200,7 @@ student_indicator[3,46] 0
 student_indicator[3,47] 0
 student_indicator[3,48] 0
 student_indicator[3,49] 0
-student_indicator[4,0] 0
+student_indicator[4,0] 1
 student_indicator[4,1] 0
 student_indicator[4,2] 0
 student_indicator[4,3] 0
@@ -229,7 +229,7 @@ student_indicator[4,25] 0
 student_indicator[4,26] 0
 student_indicator[4,27] 0
 student_indicator[4,28] 0
-student_indicator[4,29] 1
+student_indicator[4,29] 0
 student_indicator[4,30] 0
 student_indicator[4,31] 0
 student_indicator[4,32] 0
@@ -624,7 +624,7 @@ student_indicator[12,20] 0
 student_indicator[12,21] 0
 student_indicator[12,22] 0
 student_indicator[12,23] 0
-student_indicator[12,24] 0
+student_indicator[12,24] 1
 student_indicator[12,25] 0
 student_indicator[12,26] 0
 student_indicator[12,27] 0
@@ -637,7 +637,7 @@ student_indicator[12,33] 0
 student_indicator[12,34] 0
 student_indicator[12,35] 0
 student_indicator[12,36] 0
-student_indicator[12,37] 1
+student_indicator[12,37] 0
 student_indicator[12,38] 0
 student_indicator[12,39] 0
 student_indicator[12,40] 0
@@ -724,7 +724,7 @@ student_indicator[14,20] 0
 student_indicator[14,21] 0
 student_indicator[14,22] 0
 student_indicator[14,23] 0
-student_indicator[14,24] 0
+student_indicator[14,24] 1
 student_indicator[14,25] 0
 student_indicator[14,26] 0
 student_indicator[14,27] 0
@@ -737,7 +737,7 @@ student_indicator[14,33] 0
 student_indicator[14,34] 0
 student_indicator[14,35] 0
 student_indicator[14,36] 0
-student_indicator[14,37] 1
+student_indicator[14,37] 0
 student_indicator[14,38] 0
 student_indicator[14,39] 0
 student_indicator[14,40] 0
@@ -924,7 +924,7 @@ student_indicator[18,20] 0
 student_indicator[18,21] 0
 student_indicator[18,22] 0
 student_indicator[18,23] 0
-student_indicator[18,24] 0
+student_indicator[18,24] 1
 student_indicator[18,25] 0
 student_indicator[18,26] 0
 student_indicator[18,27] 0
@@ -937,7 +937,7 @@ student_indicator[18,33] 0
 student_indicator[18,34] 0
 student_indicator[18,35] 0
 student_indicator[18,36] 0
-student_indicator[18,37] 1
+student_indicator[18,37] 0
 student_indicator[18,38] 0
 student_indicator[18,39] 0
 student_indicator[18,40] 0
@@ -1205,7 +1205,7 @@ student_indicator[24,1] 0
 student_indicator[24,2] 0
 student_indicator[24,3] 0
 student_indicator[24,4] 0
-student_indicator[24,5] 0
+student_indicator[24,5] 1
 student_indicator[24,6] 0
 student_indicator[24,7] 0
 student_indicator[24,8] 0
@@ -1224,7 +1224,7 @@ student_indicator[24,20] 0
 student_indicator[24,21] 0
 student_indicator[24,22] 0
 student_indicator[24,23] 0
-student_indicator[24,24] 1
+student_indicator[24,24] 0
 student_indicator[24,25] 0
 student_indicator[24,26] 0
 student_indicator[24,27] 0
@@ -1255,7 +1255,7 @@ student_indicator[25,1] 0
 student_indicator[25,2] 0
 student_indicator[25,3] 0
 student_indicator[25,4] 0
-student_indicator[25,5] 0
+student_indicator[25,5] 1
 student_indicator[25,6] 0
 student_indicator[25,7] 0
 student_indicator[25,8] 0
@@ -1274,7 +1274,7 @@ student_indicator[25,20] 0
 student_indicator[25,21] 0
 student_indicator[25,22] 0
 student_indicator[25,23] 0
-student_indicator[25,24] 1
+student_indicator[25,24] 0
 student_indicator[25,25] 0
 student_indicator[25,26] 0
 student_indicator[25,27] 0
@@ -1305,7 +1305,7 @@ student_indicator[26,1] 0
 student_indicator[26,2] 0
 student_indicator[26,3] 0
 student_indicator[26,4] 0
-student_indicator[26,5] 0
+student_indicator[26,5] 1
 student_indicator[26,6] 0
 student_indicator[26,7] 0
 student_indicator[26,8] 0
@@ -1324,7 +1324,7 @@ student_indicator[26,20] 0
 student_indicator[26,21] 0
 student_indicator[26,22] 0
 student_indicator[26,23] 0
-student_indicator[26,24] 1
+student_indicator[26,24] 0
 student_indicator[26,25] 0
 student_indicator[26,26] 0
 student_indicator[26,27] 0
@@ -1630,7 +1630,7 @@ student_indicator[32,26] 0
 student_indicator[32,27] 0
 student_indicator[32,28] 0
 student_indicator[32,29] 0
-student_indicator[32,30] 1
+student_indicator[32,30] 0
 student_indicator[32,31] 0
 student_indicator[32,32] 0
 student_indicator[32,33] 0
@@ -1646,7 +1646,7 @@ student_indicator[32,42] 0
 student_indicator[32,43] 0
 student_indicator[32,44] 0
 student_indicator[32,45] 0
-student_indicator[32,46] 0
+student_indicator[32,46] 1
 student_indicator[32,47] 0
 student_indicator[32,48] 0
 student_indicator[32,49] 0
@@ -1930,7 +1930,7 @@ student_indicator[38,26] 0
 student_indicator[38,27] 0
 student_indicator[38,28] 0
 student_indicator[38,29] 0
-student_indicator[38,30] 0
+student_indicator[38,30] 1
 student_indicator[38,31] 0
 student_indicator[38,32] 0
 student_indicator[38,33] 0
@@ -1946,7 +1946,7 @@ student_indicator[38,42] 0
 student_indicator[38,43] 0
 student_indicator[38,44] 0
 student_indicator[38,45] 0
-student_indicator[38,46] 1
+student_indicator[38,46] 0
 student_indicator[38,47] 0
 student_indicator[38,48] 0
 student_indicator[38,49] 0
@@ -2359,7 +2359,7 @@ student_indicator[47,5] 0
 student_indicator[47,6] 0
 student_indicator[47,7] 0
 student_indicator[47,8] 0
-student_indicator[47,9] 0
+student_indicator[47,9] 1
 student_indicator[47,10] 0
 student_indicator[47,11] 0
 student_indicator[47,12] 0
@@ -2393,7 +2393,7 @@ student_indicator[47,39] 0
 student_indicator[47,40] 0
 student_indicator[47,41] 0
 student_indicator[47,42] 0
-student_indicator[47,43] 1
+student_indicator[47,43] 0
 student_indicator[47,44] 0
 student_indicator[47,45] 0
 student_indicator[47,46] 0
@@ -2459,7 +2459,7 @@ student_indicator[49,5] 0
 student_indicator[49,6] 0
 student_indicator[49,7] 0
 student_indicator[49,8] 0
-student_indicator[49,9] 1
+student_indicator[49,9] 0
 student_indicator[49,10] 0
 student_indicator[49,11] 0
 student_indicator[49,12] 0
@@ -2493,7 +2493,7 @@ student_indicator[49,39] 0
 student_indicator[49,40] 0
 student_indicator[49,41] 0
 student_indicator[49,42] 0
-student_indicator[49,43] 0
+student_indicator[49,43] 1
 student_indicator[49,44] 0
 student_indicator[49,45] 0
 student_indicator[49,46] 0
@@ -2505,7 +2505,7 @@ room_indicator[1] 0
 room_indicator[2] 0
 room_indicator[3] 0
 room_indicator[4] 0
-room_indicator[5] 0
+room_indicator[5] 1
 room_indicator[6] 0
 room_indicator[7] 0
 room_indicator[8] 0
@@ -2537,7 +2537,7 @@ room_indicator[33] 0
 room_indicator[34] 0
 room_indicator[35] 0
 room_indicator[36] 0
-room_indicator[37] 1
+room_indicator[37] 0
 room_indicator[38] 0
 room_indicator[39] 0
 room_indicator[40] 0
@@ -2550,16 +2550,16 @@ room_indicator[46] 1
 room_indicator[47] 1
 room_indicator[48] 0
 room_indicator[49] 0
-room_stress[0] 1.116
+room_stress[0] 1.166
 room_stress[1] 0
 room_stress[2] 0
 room_stress[3] 0
 room_stress[4] 0
-room_stress[5] 0
+room_stress[5] 1.1
 room_stress[6] 0
 room_stress[7] 0
 room_stress[8] 0
-room_stress[9] 1.153
+room_stress[9] 1.113
 room_stress[10] 0
 room_stress[11] 0
 room_stress[12] 0
@@ -2574,30 +2574,30 @@ room_stress[20] 0
 room_stress[21] 0
 room_stress[22] 0
 room_stress[23] 0
-room_stress[24] 1.1
+room_stress[24] 1.1480000000000001e+00
 room_stress[25] 0
 room_stress[26] 0
 room_stress[27] 0
 room_stress[28] 0
-room_stress[29] 7.884
-room_stress[30] 7.855
+room_stress[29] 7.892
+room_stress[30] 7.814
 room_stress[31] 0
 room_stress[32] 7.876
 room_stress[33] 0
 room_stress[34] 0
 room_stress[35] 0
 room_stress[36] 0
-room_stress[37] 1.1480000000000001e+00
+room_stress[37] 0
 room_stress[38] 0
 room_stress[39] 0
 room_stress[40] 0
 room_stress[41] 0
 room_stress[42] 0
-room_stress[43] 7.772
+room_stress[43] 7.819
 room_stress[44] 0
 room_stress[45] 0
-room_stress[46] 1.158
+room_stress[46] 1.116
 room_stress[47] 7.812
 room_stress[48] 0
 room_stress[49] 0
-total_happiness 1.1449300000000001e+02
+total_happiness 1.1488300000000004e+02
