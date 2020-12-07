@@ -1,5 +1,5 @@
 # Solution for model Maximum happiness
-# Objective value = 3.7613939999999993e+03
+# Objective value = 3959.532
 student_indicator[0,0] 1
 student_indicator[0,1] 0
 student_indicator[0,2] 0
@@ -50,7 +50,7 @@ student_indicator[0,46] 0
 student_indicator[0,47] 0
 student_indicator[0,48] 0
 student_indicator[0,49] 0
-student_indicator[1,0] 0
+student_indicator[1,0] 1
 student_indicator[1,1] 0
 student_indicator[1,2] 0
 student_indicator[1,3] 0
@@ -60,7 +60,7 @@ student_indicator[1,6] 0
 student_indicator[1,7] 0
 student_indicator[1,8] 0
 student_indicator[1,9] 0
-student_indicator[1,10] 1
+student_indicator[1,10] 0
 student_indicator[1,11] 0
 student_indicator[1,12] 0
 student_indicator[1,13] 0
@@ -202,7 +202,7 @@ student_indicator[3,48] 0
 student_indicator[3,49] 0
 student_indicator[4,0] 0
 student_indicator[4,1] 0
-student_indicator[4,2] 1
+student_indicator[4,2] 0
 student_indicator[4,3] 0
 student_indicator[4,4] 0
 student_indicator[4,5] 0
@@ -225,7 +225,7 @@ student_indicator[4,21] 0
 student_indicator[4,22] 0
 student_indicator[4,23] 0
 student_indicator[4,24] 0
-student_indicator[4,25] 0
+student_indicator[4,25] 1
 student_indicator[4,26] 0
 student_indicator[4,27] 0
 student_indicator[4,28] 0
@@ -257,10 +257,10 @@ student_indicator[5,3] 0
 student_indicator[5,4] 0
 student_indicator[5,5] 0
 student_indicator[5,6] 0
-student_indicator[5,7] 0
+student_indicator[5,7] 1
 student_indicator[5,8] 0
 student_indicator[5,9] 0
-student_indicator[5,10] 1
+student_indicator[5,10] 0
 student_indicator[5,11] 0
 student_indicator[5,12] 0
 student_indicator[5,13] 0
@@ -1802,12 +1802,12 @@ student_indicator[35,48] 0
 student_indicator[35,49] 0
 student_indicator[36,0] 0
 student_indicator[36,1] 0
-student_indicator[36,2] 0
+student_indicator[36,2] 1
 student_indicator[36,3] 0
 student_indicator[36,4] 0
 student_indicator[36,5] 0
 student_indicator[36,6] 0
-student_indicator[36,7] 1
+student_indicator[36,7] 0
 student_indicator[36,8] 0
 student_indicator[36,9] 0
 student_indicator[36,10] 0
@@ -1907,7 +1907,7 @@ student_indicator[38,3] 0
 student_indicator[38,4] 0
 student_indicator[38,5] 0
 student_indicator[38,6] 0
-student_indicator[38,7] 1
+student_indicator[38,7] 0
 student_indicator[38,8] 0
 student_indicator[38,9] 0
 student_indicator[38,10] 0
@@ -1935,7 +1935,7 @@ student_indicator[38,31] 0
 student_indicator[38,32] 0
 student_indicator[38,33] 0
 student_indicator[38,34] 0
-student_indicator[38,35] 0
+student_indicator[38,35] 1
 student_indicator[38,36] 0
 student_indicator[38,37] 0
 student_indicator[38,38] 0
@@ -2510,7 +2510,7 @@ room_indicator[6] 0
 room_indicator[7] 1
 room_indicator[8] 0
 room_indicator[9] 0
-room_indicator[10] 1
+room_indicator[10] 0
 room_indicator[11] 1
 room_indicator[12] 0
 room_indicator[13] 0
@@ -2550,17 +2550,17 @@ room_indicator[46] 0
 room_indicator[47] 0
 room_indicator[48] 0
 room_indicator[49] 1
-room_stress[0] 5.8699999999999541e-01
+room_stress[0] 1.0199999999999920e+00
 room_stress[1] 0
-room_stress[2] 3.5719999999999721e+00
+room_stress[2] 3.7529999999999708e+00
 room_stress[3] 0
 room_stress[4] 0
 room_stress[5] 1.7789999999999861e+00
 room_stress[6] 0
-room_stress[7] 2.4099999999999810e+00
+room_stress[7] 9.6999999999999240e-02
 room_stress[8] 0
 room_stress[9] 0
-room_stress[10] 1.8009999999999859e+00
+room_stress[10] 0
 room_stress[11] 3.8259999999999703e+00
 room_stress[12] 0
 room_stress[13] 0
@@ -2575,7 +2575,7 @@ room_stress[21] 0
 room_stress[22] 0
 room_stress[23] 0
 room_stress[24] 0
-room_stress[25] 3.4699999999999731e+00
+room_stress[25] 4.6509999999999634e+00
 room_stress[26] 2.6049999999999796e+00
 room_stress[27] 0
 room_stress[28] 0
@@ -2585,7 +2585,7 @@ room_stress[31] 0
 room_stress[32] 3.81999999999997
 room_stress[33] 0
 room_stress[34] 0
-room_stress[35] 2.5339999999999803e+00
+room_stress[35] 4.8479999999999626e+00
 room_stress[36] 0
 room_stress[37] 0
 room_stress[38] 0
@@ -2600,4 +2600,4 @@ room_stress[46] 0
 room_stress[47] 0
 room_stress[48] 0
 room_stress[49] 3.7179999999999711e+00
-total_happiness 3.7613939999999993e+03
+total_happiness 3959.532
