@@ -1,5 +1,5 @@
 # Solution for model Maximum happiness
-# Objective value = 1.4463100000121455e+02
+# Objective value = 1.4886200000000045e+02
 student_indicator[0,0] 0
 student_indicator[0,1] 0
 student_indicator[0,2] 0
@@ -421,7 +421,7 @@ student_indicator[8,17] 0
 student_indicator[8,18] 0
 student_indicator[8,19] 0
 student_indicator[8,20] 0
-student_indicator[8,21] 1
+student_indicator[8,21] 0
 student_indicator[8,22] 0
 student_indicator[8,23] 0
 student_indicator[8,24] 0
@@ -449,7 +449,7 @@ student_indicator[8,45] 0
 student_indicator[8,46] 0
 student_indicator[8,47] 0
 student_indicator[8,48] 0
-student_indicator[8,49] 0
+student_indicator[8,49] 1
 student_indicator[9,0] 0
 student_indicator[9,1] 0
 student_indicator[9,2] 0
@@ -671,7 +671,7 @@ student_indicator[13,17] 0
 student_indicator[13,18] 0
 student_indicator[13,19] 0
 student_indicator[13,20] 0
-student_indicator[13,21] 0
+student_indicator[13,21] 1
 student_indicator[13,22] 0
 student_indicator[13,23] 0
 student_indicator[13,24] 0
@@ -699,7 +699,7 @@ student_indicator[13,45] 0
 student_indicator[13,46] 0
 student_indicator[13,47] 0
 student_indicator[13,48] 0
-student_indicator[13,49] 1
+student_indicator[13,49] 0
 student_indicator[14,0] 0
 student_indicator[14,1] 0
 student_indicator[14,2] 0
@@ -2551,13 +2551,13 @@ room_indicator[47] 0
 room_indicator[48] 0
 room_indicator[49] 1
 room_stress[0] 0
-room_stress[1] 6.9489999999993408e+00
+room_stress[1] 6.949
 room_stress[2] 0
-room_stress[3] 7.1320000000018435e+00
+room_stress[3] 7.1320000000000006e+00
 room_stress[4] 0
 room_stress[5] 0
 room_stress[6] 5.2409999999999890e+00
-room_stress[7] 6.9480000000019331e+00
+room_stress[7] 6.948
 room_stress[8] 0
 room_stress[9] 0
 room_stress[10] 0
@@ -2571,15 +2571,15 @@ room_stress[17] 0
 room_stress[18] 0
 room_stress[19] 0
 room_stress[20] 0
-room_stress[21] 7.4720000000012785e+00
+room_stress[21] 6.707
 room_stress[22] 0
 room_stress[23] 0
-room_stress[24] 7.049
+room_stress[24] 7.0489999999999995e+00
 room_stress[25] 6.482
 room_stress[26] 0
 room_stress[27] 0
-room_stress[28] 6.1400000000002715e+00
-room_stress[29] 7.8019999999999969e+00
+room_stress[28] 6.1400000000004
+room_stress[29] 7.8020000000000067e+00
 room_stress[30] 0
 room_stress[31] 0
 room_stress[32] 0
@@ -2599,5 +2599,5 @@ room_stress[45] 0
 room_stress[46] 0
 room_stress[47] 0
 room_stress[48] 0
-room_stress[49] 5.797
-total_happiness 1.4463100000121455e+02
+room_stress[49] 4.473
+total_happiness 1.4886200000000045e+02
