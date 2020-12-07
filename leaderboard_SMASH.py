@@ -63,12 +63,12 @@ if __name__ == "__main__":
         dir_list = os.listdir(folder)
         interrupt_event = Event()
         for file in dir_list:
-            if os.path.splitext(file)[1] == ".in" and "large-79" in file:
+            if os.path.splitext(file)[1] == ".in":
                 print("=" * 50)
                 input_f_path = os.path.join(args.input, file)
                 output_f_name = file.replace(".in", ".out")
                 output_f_path = os.path.join(args.output, output_f_name)
-                partial_f_path = output_f_path.replace(".out", ".inprogres")
+                partial_f_path = output_f_path.replace(".out", ".inprogress")
                 partial_f_name = os.path.basename(partial_f_path)
                 output_happiness = float("-inf")
                 G, s = read_input_file(input_f_path)
