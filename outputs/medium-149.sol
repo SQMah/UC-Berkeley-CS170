@@ -32,7 +32,7 @@ student_indicator[1,8] 0
 student_indicator[1,9] 0
 student_indicator[1,10] 0
 student_indicator[1,11] 1
-student_indicator[1,12] -3.3330746474456718e-19
+student_indicator[1,12] 0
 student_indicator[1,13] 0
 student_indicator[1,14] 0
 student_indicator[1,15] 0
@@ -251,7 +251,7 @@ student_indicator[12,7] 0
 student_indicator[12,8] 0
 student_indicator[12,9] 0
 student_indicator[12,10] 0
-student_indicator[12,11] -3.3542504711270293e-19
+student_indicator[12,11] 0
 student_indicator[12,12] 1
 student_indicator[12,13] 0
 student_indicator[12,14] 0
@@ -272,7 +272,7 @@ student_indicator[13,8] 0
 student_indicator[13,9] 0
 student_indicator[13,10] 0
 student_indicator[13,11] 0
-student_indicator[13,12] -8.4703294725430034e-22
+student_indicator[13,12] 0
 student_indicator[13,13] 0
 student_indicator[13,14] 0
 student_indicator[13,15] 0
@@ -322,7 +322,7 @@ student_indicator[15,18] 0
 student_indicator[15,19] 0
 student_indicator[16,0] 0
 student_indicator[16,1] 0
-student_indicator[16,2] -3.3881317890172014e-21
+student_indicator[16,2] 0
 student_indicator[16,3] 0
 student_indicator[16,4] 0
 student_indicator[16,5] 0
