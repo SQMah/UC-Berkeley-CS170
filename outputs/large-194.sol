@@ -1,5 +1,9 @@
 # Solution for model Maximum happiness
+<<<<<<< HEAD
 # Objective value = 2.5729900489415309e+02
+=======
+# Objective value = 2.5633000000000004e+02
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[0,0] 1
 student_indicator[0,1] 0
 student_indicator[0,2] 0
@@ -122,7 +126,11 @@ student_indicator[2,18] 0
 student_indicator[2,19] 0
 student_indicator[2,20] 0
 student_indicator[2,21] 0
+<<<<<<< HEAD
 student_indicator[2,22] 0
+=======
+student_indicator[2,22] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[2,23] 0
 student_indicator[2,24] 0
 student_indicator[2,25] 0
@@ -145,7 +153,11 @@ student_indicator[2,41] 0
 student_indicator[2,42] 0
 student_indicator[2,43] 0
 student_indicator[2,44] 0
+<<<<<<< HEAD
 student_indicator[2,45] 1
+=======
+student_indicator[2,45] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[2,46] 0
 student_indicator[2,47] 0
 student_indicator[2,48] 0
@@ -172,13 +184,21 @@ student_indicator[3,18] 0
 student_indicator[3,19] 0
 student_indicator[3,20] 0
 student_indicator[3,21] 0
+<<<<<<< HEAD
 student_indicator[3,22] 1
+=======
+student_indicator[3,22] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[3,23] 0
 student_indicator[3,24] 0
 student_indicator[3,25] 0
 student_indicator[3,26] 0
 student_indicator[3,27] 0
+<<<<<<< HEAD
 student_indicator[3,28] 0
+=======
+student_indicator[3,28] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[3,29] 0
 student_indicator[3,30] 0
 student_indicator[3,31] 0
@@ -258,10 +278,17 @@ student_indicator[5,4] 0
 student_indicator[5,5] 0
 student_indicator[5,6] 0
 student_indicator[5,7] 0
+<<<<<<< HEAD
 student_indicator[5,8] 9.9999950678337712e-01
 student_indicator[5,9] 0
 student_indicator[5,10] 0
 student_indicator[5,11] 4.91565856185721e-07
+=======
+student_indicator[5,8] 1
+student_indicator[5,9] 0
+student_indicator[5,10] 0
+student_indicator[5,11] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[5,12] 0
 student_indicator[5,13] 0
 student_indicator[5,14] 0
@@ -526,7 +553,11 @@ student_indicator[10,22] 0
 student_indicator[10,23] 0
 student_indicator[10,24] 0
 student_indicator[10,25] 0
+<<<<<<< HEAD
 student_indicator[10,26] 1
+=======
+student_indicator[10,26] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[10,27] 0
 student_indicator[10,28] 0
 student_indicator[10,29] 0
@@ -536,7 +567,11 @@ student_indicator[10,32] 0
 student_indicator[10,33] 0
 student_indicator[10,34] 0
 student_indicator[10,35] 0
+<<<<<<< HEAD
 student_indicator[10,36] 0
+=======
+student_indicator[10,36] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[10,37] 0
 student_indicator[10,38] 0
 student_indicator[10,39] 0
@@ -610,8 +645,13 @@ student_indicator[12,6] 0
 student_indicator[12,7] 0
 student_indicator[12,8] 0
 student_indicator[12,9] 0
+<<<<<<< HEAD
 student_indicator[12,10] 0
 student_indicator[12,11] 1
+=======
+student_indicator[12,10] 1
+student_indicator[12,11] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[12,12] 0
 student_indicator[12,13] 0
 student_indicator[12,14] 0
@@ -776,7 +816,11 @@ student_indicator[15,22] 0
 student_indicator[15,23] 0
 student_indicator[15,24] 0
 student_indicator[15,25] 0
+<<<<<<< HEAD
 student_indicator[15,26] 1
+=======
+student_indicator[15,26] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[15,27] 0
 student_indicator[15,28] 0
 student_indicator[15,29] 0
@@ -786,7 +830,11 @@ student_indicator[15,32] 0
 student_indicator[15,33] 0
 student_indicator[15,34] 0
 student_indicator[15,35] 0
+<<<<<<< HEAD
 student_indicator[15,36] 0
+=======
+student_indicator[15,36] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[15,37] 0
 student_indicator[15,38] 0
 student_indicator[15,39] 0
@@ -811,7 +859,11 @@ student_indicator[16,7] 0
 student_indicator[16,8] 0
 student_indicator[16,9] 0
 student_indicator[16,10] 0
+<<<<<<< HEAD
 student_indicator[16,11] 0
+=======
+student_indicator[16,11] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[16,12] 0
 student_indicator[16,13] 0
 student_indicator[16,14] 0
@@ -848,7 +900,11 @@ student_indicator[16,44] 0
 student_indicator[16,45] 0
 student_indicator[16,46] 0
 student_indicator[16,47] 0
+<<<<<<< HEAD
 student_indicator[16,48] 1
+=======
+student_indicator[16,48] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[16,49] 0
 student_indicator[17,0] 0
 student_indicator[17,1] 0
@@ -1278,7 +1334,11 @@ student_indicator[25,24] 0
 student_indicator[25,25] 0
 student_indicator[25,26] 0
 student_indicator[25,27] 0
+<<<<<<< HEAD
 student_indicator[25,28] 1
+=======
+student_indicator[25,28] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[25,29] 0
 student_indicator[25,30] 0
 student_indicator[25,31] 0
@@ -1295,7 +1355,11 @@ student_indicator[25,41] 0
 student_indicator[25,42] 0
 student_indicator[25,43] 0
 student_indicator[25,44] 0
+<<<<<<< HEAD
 student_indicator[25,45] 0
+=======
+student_indicator[25,45] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[25,46] 0
 student_indicator[25,47] 0
 student_indicator[25,48] 0
@@ -1611,7 +1675,11 @@ student_indicator[32,7] 0
 student_indicator[32,8] 0
 student_indicator[32,9] 0
 student_indicator[32,10] 0
+<<<<<<< HEAD
 student_indicator[32,11] 0
+=======
+student_indicator[32,11] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[32,12] 0
 student_indicator[32,13] 0
 student_indicator[32,14] 0
@@ -1648,7 +1716,11 @@ student_indicator[32,44] 0
 student_indicator[32,45] 0
 student_indicator[32,46] 0
 student_indicator[32,47] 0
+<<<<<<< HEAD
 student_indicator[32,48] 1
+=======
+student_indicator[32,48] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[32,49] 0
 student_indicator[33,0] 0
 student_indicator[33,1] 0
@@ -2126,7 +2198,11 @@ student_indicator[42,22] 0
 student_indicator[42,23] 0
 student_indicator[42,24] 0
 student_indicator[42,25] 0
+<<<<<<< HEAD
 student_indicator[42,26] 1
+=======
+student_indicator[42,26] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[42,27] 0
 student_indicator[42,28] 0
 student_indicator[42,29] 0
@@ -2136,7 +2212,11 @@ student_indicator[42,32] 0
 student_indicator[42,33] 0
 student_indicator[42,34] 0
 student_indicator[42,35] 0
+<<<<<<< HEAD
 student_indicator[42,36] 0
+=======
+student_indicator[42,36] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[42,37] 0
 student_indicator[42,38] 0
 student_indicator[42,39] 0
@@ -2310,8 +2390,13 @@ student_indicator[46,6] 0
 student_indicator[46,7] 0
 student_indicator[46,8] 0
 student_indicator[46,9] 0
+<<<<<<< HEAD
 student_indicator[46,10] 0
 student_indicator[46,11] 1
+=======
+student_indicator[46,10] 1
+student_indicator[46,11] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 student_indicator[46,12] 0
 student_indicator[46,13] 0
 student_indicator[46,14] 0
@@ -2510,7 +2595,11 @@ room_indicator[6] 0
 room_indicator[7] 0
 room_indicator[8] 1
 room_indicator[9] 0
+<<<<<<< HEAD
 room_indicator[10] 0
+=======
+room_indicator[10] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 room_indicator[11] 1
 room_indicator[12] 0
 room_indicator[13] 1
@@ -2526,7 +2615,11 @@ room_indicator[22] 1
 room_indicator[23] 1
 room_indicator[24] 0
 room_indicator[25] 0
+<<<<<<< HEAD
 room_indicator[26] 1
+=======
+room_indicator[26] 0
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 room_indicator[27] 0
 room_indicator[28] 1
 room_indicator[29] 0
@@ -2536,7 +2629,11 @@ room_indicator[32] 0
 room_indicator[33] 0
 room_indicator[34] 1
 room_indicator[35] 0
+<<<<<<< HEAD
 room_indicator[36] 0
+=======
+room_indicator[36] 1
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 room_indicator[37] 0
 room_indicator[38] 0
 room_indicator[39] 0
@@ -2548,6 +2645,7 @@ room_indicator[44] 0
 room_indicator[45] 1
 room_indicator[46] 0
 room_indicator[47] 0
+<<<<<<< HEAD
 room_indicator[48] 1
 room_indicator[49] 0
 room_stress[0] 1.563
@@ -2562,6 +2660,22 @@ room_stress[8] 1.5089992506821228e+00
 room_stress[9] 0
 room_stress[10] 0
 room_stress[11] 1.9200008888528823e+00
+=======
+room_indicator[48] 0
+room_indicator[49] 0
+room_stress[0] 1.563
+room_stress[1] 0.39
+room_stress[2] 2.645
+room_stress[3] 0
+room_stress[4] 2.6000000000000014e+00
+room_stress[5] 1.13
+room_stress[6] 0
+room_stress[7] 0
+room_stress[8] 1.509
+room_stress[9] 0
+room_stress[10] 1.92
+room_stress[11] 2.1700000000000017e+00
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 room_stress[12] 0
 room_stress[13] 2.627
 room_stress[14] 1.04
@@ -2572,6 +2686,7 @@ room_stress[18] 0
 room_stress[19] 0.41
 room_stress[20] 0
 room_stress[21] 1.85
+<<<<<<< HEAD
 room_stress[22] 2.202
 room_stress[23] 1.81
 room_stress[24] 0
@@ -2579,6 +2694,15 @@ room_stress[25] 0
 room_stress[26] 1.0800000000000007e+00
 room_stress[27] 0
 room_stress[28] 2.238
+=======
+room_stress[22] 1.861
+room_stress[23] 1.81
+room_stress[24] 0
+room_stress[25] 0
+room_stress[26] 0
+room_stress[27] 0
+room_stress[28] 1.735
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 room_stress[29] 0
 room_stress[30] 0.59
 room_stress[31] 0
@@ -2586,7 +2710,11 @@ room_stress[32] 0
 room_stress[33] 0
 room_stress[34] 1.22
 room_stress[35] 0
+<<<<<<< HEAD
 room_stress[36] 0
+=======
+room_stress[36] 1.08
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
 room_stress[37] 0
 room_stress[38] 0
 room_stress[39] 0
@@ -2595,9 +2723,18 @@ room_stress[41] 0.79
 room_stress[42] 0
 room_stress[43] 2.08
 room_stress[44] 0
+<<<<<<< HEAD
 room_stress[45] 0.43
 room_stress[46] 0
 room_stress[47] 0
 room_stress[48] 2.17
 room_stress[49] 0
 total_happiness 2.5729900489415309e+02
+=======
+room_stress[45] 2.344
+room_stress[46] 0
+room_stress[47] 0
+room_stress[48] 0
+room_stress[49] 0
+total_happiness 2.5633000000000004e+02
+>>>>>>> c1c4aaa10c8dbe966105669601da5dcd374831b0
